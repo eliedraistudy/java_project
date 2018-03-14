@@ -39,12 +39,10 @@ public class Point2D {
     // ***************** Administration ******************** //
     public int compareTo(Point2D point2D) // return 0 if equal and 1 id not equal
     {
-        //if (this._x.getCoordinate() == point2D._x.getCoordinate() && this._y.getCoordinate() == point2D._y.getCoordinate())
-
-        double SizeOfInputVector = Math.sqrt(point2D._x.getCoordinate()*point2D._x.getCoordinate() + point2D._y.getCoordinate()*point2D._y.getCoordinate());
-        double SizeOfThisVector = Math.sqrt(_x.getCoordinate()*_x.getCoordinate() + _y.getCoordinate()*_y.getCoordinate());
-
-        return Double.compare(SizeOfThisVector,SizeOfInputVector);
+        if (this._x.getCoordinate() == point2D._x.getCoordinate() && this._y.getCoordinate() == point2D._y.getCoordinate())
+            return 0;
+        else
+            return 1;
     }
 
 }
