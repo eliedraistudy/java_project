@@ -42,3 +42,5 @@ public class Coordinate implements Comparable<Coordinate>
         _coordinate-=coordinate._coordinate;
     }
 }
+
+//hi
