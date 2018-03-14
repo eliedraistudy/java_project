@@ -42,6 +42,8 @@ public class Vector
         return "(" + _head.getX().getCoordinate() + "," + _head.getY().getCoordinate() + ","
                 + _head.getZ().getCoordinate() + ")";
     }
+
+
     // ***************** Operations ******************** //
     public void add (Vector vector );
     public void subtract (Vector vector);

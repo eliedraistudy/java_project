@@ -20,12 +20,16 @@ public class Ray
         _direction = new Vector(ray._direction);
     }
 
-    public Ray(Point3D poo, Vector direction);
+    public Ray(Point3D poo, Vector direction)
+    {
+        _POO = new Point3D(poo);
+        _direction = new Vector(direction);
+    }
 
 
     // ***************** Getters/Setters ********************** //
-    public void setPOO(Point3D _POO);
-    public void setDirection(Vector _direction);
-    public Vector  getDirection();
-    public Point3D getPOO();
+    public void setPOO(Point3D POO) {_POO = POO; }
+    public void setDirection(Vector direction) { _direction = direction;}
+    public Vector  getDirection() { return _direction; }
+    public Point3D getPOO() { return _POO; }
 }
