@@ -45,14 +45,43 @@ public class Vector
 
 
     // ***************** Operations ******************** //
-    public void add (Vector vector );
+    public void add (Vector vector )
+    {
+        _head._x.setCoordinate(_head._x.getCoordinate() + vector._head._x.getCoordinate());
+        _head._y.setCoordinate(_head._y.getCoordinate() + vector._head._y.getCoordinate());
+        _head._z.setCoordinate(_head.getZ().getCoordinate() + vector._head.getZ().getCoordinate());
+    }
     public void subtract (Vector vector);
     public void scale(double scalingFactor);
-    public Vector crossProduct(Vector vector);
-    public double length();
+    public Vector crossProduct(Vector vector)
+    {
+        double x_component = this._head._y.getCoordinate()*vector._head._z.getCoordinate()
+                - this._head._z.getCoordinate()*vector._head._y.getCoordinate();
+
+        double y_component = this._head._z.getCoordinate()*vector._head._x.getCoordinate()
+                - this._head._x.getCoordinate()*vector._head._z.getCoordinate();
+
+        double z_component = this._head._x.getCoordinate()*vector._head._y.getCoordinate()
+                - this._head._y.getCoordinate()*vector._head._x.getCoordinate();
+
+        return new Vector(x_component,y_component,z_component);
+    }
+    public double length()
+    {
+        double powerOf_X = Math.pow(_head._x.getCoordinate(),2);
+        double powerOf_Y = Math.pow(_head._y.getCoordinate(),2);
+        double powerOf_Z = Math.pow(_head._z.getCoordinate(),2);
+
+        return Math.sqrt(powerOf_X + powerOf_Y + powerOf_Z);
+    }
     public void normalize(); // Throws exception if length = 0
-    public double dotProduct(Vector vector);
+    public double dotProduct(Vector vector)
+    {
+        double x = this._head._x.getCoordinate()* vector._head._x.getCoordinate();
+        double y = this._head._y.getCoordinate()* vector._head._y.getCoordinate();
+        double z = this._head._z.getCoordinate()* vector._head._z.getCoordinate();
 
+        return x+y+z;
+    }
 
-    //try to add a commentary
 }

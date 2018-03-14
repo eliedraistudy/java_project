@@ -19,22 +19,17 @@ public class Point2D {
     }
 
     // ***************** Getters/Setters ********************** //
-    public Coordinate getX() {
-        return _x;
-
-    }
+    public Coordinate getX() { return _x; }
 
     public Coordinate getY() {
         return _y;
     }
 
     public void setX(Coordinate _x) {
-        this._x = _x;
+        this._x.setCoordinate(_x.getCoordinate());
     }
 
-    public void setY(Coordinate _y) {
-        this._y = _y;
-    }
+    public void setY(Coordinate _y) { this._y.setCoordinate(_y.getCoordinate()); }
 
     // ***************** Administration ******************** //
     public int compareTo(Point2D point2D) // return 0 if equal and 1 id not equal
