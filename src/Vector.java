@@ -52,4 +52,7 @@ public class Vector
     public double length();
     public void normalize(); // Throws exception if length = 0
     public double dotProduct(Vector vector);
+
+
+    //try to add a commentary
 }
