@@ -1,9 +1,11 @@
+package Primitives;
+
 public class Ray
 {
     // Point of origin
     private Point3D _POO;
 
-    // Ray direction
+    // Primitives.Ray direction
     private Vector _direction;
 
 
@@ -30,7 +32,7 @@ public class Ray
     // ***************** Getters/Setters ********************** //
     public void setPOO(Point3D POO) {_POO = POO; }
     public void setDirection(Vector direction) { _direction = direction;}
-    public Vector  getDirection() { return _direction; }
+    public Vector getDirection() { return _direction; }
     public Point3D getPOO() { return _POO; }
 
     //hello

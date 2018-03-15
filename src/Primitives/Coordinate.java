@@ -1,3 +1,5 @@
+package Primitives;
+
 public class Coordinate implements Comparable<Coordinate>
 {
     /**
@@ -24,7 +26,7 @@ public class Coordinate implements Comparable<Coordinate>
 
     /**
      * Copy constructor, initialize with the parameter coordinate
-     * @param coordinate Coordinate which represent the value to assign to the object
+     * @param coordinate represent the object to copy into the current object
      */
     public Coordinate(Coordinate coordinate) {
         _coordinate = coordinate._coordinate;

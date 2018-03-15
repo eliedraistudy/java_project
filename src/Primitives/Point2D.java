@@ -1,6 +1,8 @@
+package Primitives;
+
 public class Point2D
 {
-    
+
     protected Coordinate _x;
     protected Coordinate _y;
 

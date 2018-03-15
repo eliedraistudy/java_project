@@ -1,3 +1,5 @@
+package Primitives;
+
 public class Point3D extends Point2D
 {
     protected Coordinate _z;
@@ -44,8 +46,8 @@ public class Point3D extends Point2D
     }
 
     // ***************** Operations ******************** //
-   // public void add(Vector vector);
-    //public void subtract(Vector vector);
+   // public void add(Primitives.Vector vector);
+    //public void subtract(Primitives.Vector vector);
     public double distance(Point3D point)
     {
         double powerOfsubtraction_X = Math.pow((this._x.getCoordinate() - point._x.getCoordinate()),2);
