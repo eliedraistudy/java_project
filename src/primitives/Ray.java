@@ -1,11 +1,11 @@
-package Primitives;
+package primitives;
 
 public class Ray
 {
     // Point of origin
     private Point3D _POO;
 
-    // Primitives.Ray direction
+    // primitives.Ray direction
     private Vector _direction;
 
 

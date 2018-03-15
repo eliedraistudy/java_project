@@ -1,4 +1,4 @@
-package Primitives;
+package primitives;
 
 public class Vector
 {
@@ -42,15 +42,16 @@ public class Vector
     }
 
     /**
-     * Create a vector which the base is the head of p1 and the
-     * @param p1
-     * @param p2
+     * Create a vector which the base is the head of p1 and the head is head of p2
+     * Do substract p2 - p1
+     * @param p1 head of vector 1
+     * @param p2 head of vector 2
      */
     public Vector(Point3D p1, Point3D p2)
     {
-        double x = p1.getX().getCoordinate() + p2.getX().getCoordinate();
-        double y = p1.getY().getCoordinate() + p2.getY().getCoordinate();
-        double z = p1.getZ().getCoordinate() + p2.getZ().getCoordinate();
+        double x = - p1.getX().getCoordinate() + p2.getX().getCoordinate();
+        double y = - p1.getY().getCoordinate() + p2.getY().getCoordinate();
+        double z = - p1.getZ().getCoordinate() + p2.getZ().getCoordinate();
         this._head = new Point3D(x,y,z);
     }
 
