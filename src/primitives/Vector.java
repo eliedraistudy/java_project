@@ -49,9 +49,9 @@ public class Vector
      */
     public Vector(Point3D p1, Point3D p2)
     {
-        double x = - p1.getX().getCoordinate() + p2.getX().getCoordinate();
-        double y = - p1.getY().getCoordinate() + p2.getY().getCoordinate();
-        double z = - p1.getZ().getCoordinate() + p2.getZ().getCoordinate();
+        double x = - p1.getXValue() + p2.getXValue();
+        double y = - p1.getYValue() + p2.getYValue();
+        double z = - p1.getZValue() + p2.getZValue();
         this._head = new Point3D(x,y,z);
     }
 
@@ -64,10 +64,37 @@ public class Vector
     public Point3D getHead(){ return _head; }
 
     /**
-     * Assign value to _head
+     * Getter for x component in the vector
+     * @return vector's x component
+     */
+    public double getX() { return _head.getXValue(); }
+
+    /**
+     * Getter for y component in the vector
+     * @return vector's y component
+     */
+    public double getY() { return _head.getYValue(); }
+
+    /**
+     * Getter for z component in the vector
+     * @return vector's z component
+     */
+    public double getZ() { return _head.getZValue(); }
+
+
+    /**
+     * Assign point3D value to _head
      * @param head the value to assign
      */
-    public void setHead(Point3D head){ this._head = new Point3D(head); }
+    public void setHead(Point3D head){ _head = new Point3D(head); }
+
+    /**
+     * Assign value to the head
+     * @param x x component
+     * @param y y component
+     * @param z z component
+     */
+    public void setHead(double x, double y, double z) { _head = new Point3D(x, y, z); }
 
     // ***************** Administration ******************** //
 
@@ -110,11 +137,11 @@ public class Vector
      * Function to add a vector to an existing one
      * @param vector the vector to add
      */
-    public void add (Vector vector )
+    public void add (Vector vector)
     {
-        _head._x.setCoordinate(_head.getX().getCoordinate() + vector.getHead().getX().getCoordinate());
-        _head._y.setCoordinate(_head._y.getCoordinate() + vector._head._y.getCoordinate());
-        _head._z.setCoordinate(_head._z.getCoordinate() + vector._head.getZ().getCoordinate());
+        _head._x.setCoordinate(getX() + vector.getX());
+        _head._y.setCoordinate(getY() + vector.getY());
+        _head._z.setCoordinate(getZ() + vector.getZ());
     }
 
     /**
@@ -168,9 +195,9 @@ public class Vector
      */
     public double length()
     {
-        double powerOf_X = Math.pow(_head._x.getCoordinate(),2);
-        double powerOf_Y = Math.pow(_head._y.getCoordinate(),2);
-        double powerOf_Z = Math.pow(_head._z.getCoordinate(),2);
+        double powerOf_X = Math.pow(_head.getXValue(),2);
+        double powerOf_Y = Math.pow(_head.getYValue(),2);
+        double powerOf_Z = Math.pow(_head.getZValue(),2);
 
         return Math.sqrt(powerOf_X + powerOf_Y + powerOf_Z);
     }

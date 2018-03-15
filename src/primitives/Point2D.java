@@ -51,6 +51,7 @@ public class Point2D
      * @return x coordinate
      */
     public Coordinate getX() { return _x; }
+    public double getXValue() {return _x.getCoordinate(); }
 
     /**
      * Get the y coordinate
@@ -59,6 +60,7 @@ public class Point2D
     public Coordinate getY() {
         return _y;
     }
+    public double getYValue() {return _y.getCoordinate(); }
 
     /**
      * Assign the value given in parameter to x
