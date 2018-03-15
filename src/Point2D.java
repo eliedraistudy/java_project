@@ -1,4 +1,6 @@
-public class Point2D {
+public class Point2D
+{
+    
     protected Coordinate _x;
     protected Coordinate _y;
 
