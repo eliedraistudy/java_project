@@ -28,6 +28,7 @@ public class Point3D extends Point2D
     }
     // ***************** Getters/Setters ********************** //
     public Coordinate getZ(){return _z;}
+
     public void setZ(Coordinate _z){this._z.setCoordinate(_z.getCoordinate());}
     // ***************** Administration ******************** //
    public int compareTo(Point3D point3D)

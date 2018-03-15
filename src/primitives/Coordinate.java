@@ -73,6 +73,11 @@ public class Coordinate implements Comparable<Coordinate>
         _coordinate+= coordinate._coordinate;
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("%2f", _coordinate);
+    }
 
     /**
      * Substract value to an existing coordinate

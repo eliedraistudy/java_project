@@ -94,10 +94,13 @@ public class Vector
      * Override of toString
      * @return the string representation of the vector (3 coordinates)
      */
-    public String toString() // lhazek 2 sfrot after the dot
+    @Override
+    public String toString()
     {
-        return "(" + _head.getX().getCoordinate() + "," + _head.getY().getCoordinate() + ","
-                + _head.getZ().getCoordinate() + ")";
+        return String.format("(%s, %s, %s",
+                _head.getX(),
+                _head.getY(),
+                _head.getZ());
     }
 
 
@@ -109,7 +112,7 @@ public class Vector
      */
     public void add (Vector vector )
     {
-        _head._x.setCoordinate(_head._x.getCoordinate() + vector._head._x.getCoordinate());
+        _head._x.setCoordinate(_head.getX().getCoordinate() + vector.getHead().getX().getCoordinate());
         _head._y.setCoordinate(_head._y.getCoordinate() + vector._head._y.getCoordinate());
         _head._z.setCoordinate(_head._z.getCoordinate() + vector._head.getZ().getCoordinate());
     }
