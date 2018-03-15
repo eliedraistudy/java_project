@@ -1,6 +1,6 @@
 public class Point3D extends Point2D
 {
-    private Coordinate _z;
+    protected Coordinate _z;
     // ***************** Constructors ********************** //
     public Point3D()
     {
@@ -26,15 +26,31 @@ public class Point3D extends Point2D
     }
     // ***************** Getters/Setters ********************** //
     public Coordinate getZ(){return _z;}
-    public void setZ(Coordinate _z){this._z = _z;}
+    public void setZ(Coordinate _z){this._z.setCoordinate(_z.getCoordinate());}
     // ***************** Administration ******************** //
-   // public int compareTo(Point3D point3D);
+   public int compareTo(Point3D point3D)
+   {
+       if (super._x.getCoordinate() == point3D._x.getCoordinate() &&
+               super._y.getCoordinate() == point3D._y.getCoordinate()&&
+               _z.getCoordinate() == point3D._z.getCoordinate())
+           return 0;
+       else
+           return 1;
+   }
+
     public String toString()
     {
         return "(" + _x + "," + _y + ")";
     }
+
     // ***************** Operations ******************** //
    // public void add(Vector vector);
     //public void subtract(Vector vector);
-    //public double distance(Point3D point); // lasot pitgoras
+    public double distance(Point3D point)
+    {
+        double powerOfsubtraction_X = Math.pow((this._x.getCoordinate() - point._x.getCoordinate()),2);
+        double powerOfsubtraction_Y = Math.pow(this._y.getCoordinate() - point._y.getCoordinate(),2);
+        double powerOfsubtraction_Z = Math.pow(this._z.getCoordinate() - point._z.getCoordinate(),2);
+        return Math.sqrt(powerOfsubtraction_X + powerOfsubtraction_Y + powerOfsubtraction_Z);
+    }
 }

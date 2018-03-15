@@ -32,4 +32,6 @@ public class Ray
     public void setDirection(Vector direction) { _direction = direction;}
     public Vector  getDirection() { return _direction; }
     public Point3D getPOO() { return _POO; }
+
+    //hello
 }
