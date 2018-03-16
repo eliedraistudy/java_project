@@ -1,3 +1,6 @@
 package geometries;
 
-public interface FlatGeometry { }
+public interface FlatGeometry
+{
+
+}

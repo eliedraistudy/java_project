@@ -22,7 +22,7 @@ public class Geometry
     {
         _material = new Material();
         _nShininess = 1;
-        _emission = new Color(0,0,0);
+        _emission = new Color(0,0,1,1.0);
     }
 
 

@@ -209,7 +209,8 @@ public class Vector
      */
     public void normalize() throws Exception
     {
-        if(length() == 0) throw new Exception("Error, null vector");
+        if(length() == 0)
+            throw new Exception("Error, null vector");
 
         this._head = new Point3D(normalVector()._head);
     }
