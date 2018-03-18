@@ -1,6 +1,6 @@
 package primitives;
 
-public class Point2D
+public abstract class Point2D
 {
 
     /**
@@ -86,10 +86,13 @@ public class Point2D
      */
     public int compareTo(Point2D point2D) // return 0 if equal and 1 id not equal
     {
-        if (this._x.getCoordinate() == point2D._x.getCoordinate() && this._y.getCoordinate() == point2D._y.getCoordinate())
+        if (this._x.getCoordinate() == point2D._x.getCoordinate()
+                && this._y.getCoordinate() == point2D._y.getCoordinate())
             return 0;
         else
             return 1;
     }
 
+    // ***************** Administration ******************** //
+    public abstract int compareTo(Point3D point3D);
 }

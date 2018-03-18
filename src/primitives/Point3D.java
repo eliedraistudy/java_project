@@ -35,19 +35,20 @@ public class Point3D extends Point2D
     public void setPoint(Point3D p) { setX(p.getX()); setY(p.getY()); setZ(p.getZ()); }
 
     // ***************** Administration ******************** //
-   public int compareTo(Point3D point3D)
-   {
+    @Override
+    public int compareTo(Point3D point3D)
+    {
        if (super._x.getCoordinate() == point3D._x.getCoordinate() &&
                super._y.getCoordinate() == point3D._y.getCoordinate()&&
                _z.getCoordinate() == point3D._z.getCoordinate())
            return 0;
        else
            return 1;
-   }
+    }
 
     public String toString()
     {
-        return "(" + _x + "," + _y + ")";
+        return "(" + _x + ", " + _y + ", " + _z + ")";
     }
 
     // ***************** Operations ******************** //
