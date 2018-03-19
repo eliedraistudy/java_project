@@ -35,15 +35,20 @@ public class Point3D extends Point2D
     public void setPoint(Point3D p) { setX(p.getX()); setY(p.getY()); setZ(p.getZ()); }
 
     // ***************** Administration ******************** //
+
+    /**
+     * Override the compare to function
+     * @param p the point to compare
+     * @return 0 if all coordinates equals, 1 otherwise
+     */
     @Override
-    public int compareTo(Point3D point3D)
+    public int compareTo(Point3D p)
     {
-       if (super._x.getCoordinate() == point3D._x.getCoordinate() &&
-               super._y.getCoordinate() == point3D._y.getCoordinate()&&
-               _z.getCoordinate() == point3D._z.getCoordinate())
+       if(getXValue() == p.getXValue() &&
+               getYValue() == p.getYValue() &&
+               getZValue() == p.getZValue())
            return 0;
-       else
-           return 1;
+       else return 1;
     }
 
     public String toString()
@@ -52,6 +57,8 @@ public class Point3D extends Point2D
     }
 
     // ***************** Operations ******************** //
+
+
    // public void add(primitives.Vector vector);
     //public void subtract(primitives.Vector vector);
     public double distance(Point3D point)

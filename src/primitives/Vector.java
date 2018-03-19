@@ -101,7 +101,7 @@ public class Vector
 
     /**
      * Override the compare to function in object
-     * Compare between 2 vectors according to their length
+     * Compare between 2 vectors according to their coordinates
      * @param vector the vector2 to compare
      * @return -1 if this vector is smaller, 1 if bigger and 0 if equals
      */
@@ -114,6 +114,8 @@ public class Vector
             return -1;
 
         else return 0; // if vectors are equal
+
+        _head.CompareTo(vector._head);
 
     }
 
@@ -245,4 +247,16 @@ public class Vector
         return x+y+z;
     }
 
+    /**
+     * Check if a vector is null
+     * @return return true if the vector is coordinate (0,0,0)
+     */
+    public boolean isNull()
+    {
+        return (_head._x.getCoordinate() == 0 &&
+                _head._y.getCoordinate() == 0 &&
+                _head._z.getCoordinate() == 0);
+    }
+
+    public static Vector Null() { return new Vector(0,0,0); }
 }

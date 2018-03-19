@@ -4,6 +4,7 @@ import primitives.Vector;
 import primitives.Point3D;
 import primitives.Ray;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Plane
@@ -100,11 +101,66 @@ public class Plane
     /**
      * Find intersections between a ray and the plane
      * @param ray
-     * @return list of 3D pointsfor intersections, empty list if no intersection
+     * @return list of 3D points for intersections, empty list if no intersection
      */
     public List<Point3D> FindIntersections(Ray ray)
     {
+        Vector w = new Vector(ray.getDirection());
+        List<Point3D> lp = new ArrayList<Point3D>();
+        if (w.dotProduct(_normal) == 0)
+            return lp;
+
+        //  solve equation of intersection
+        //  ray : {x = a+Xt, y = b+Yt, z = c+Zt}
+        //  plane : {Ax+By+Cz = D}
+        //  A(a+Xt) + B(b+Yt) + C(c+Zt) = D
+        //  t(AX + BY + CZ) = D - (Aa+Bb+Cc)
+        //  t = [D - (Aa+Bb+Cc)]/(AX + BY + CZ)
+
+        double a = ray.getPOO().getXValue();
+        double b = ray.getPOO().getYValue();
+        double c = ray.getPOO().getZValue();
+
+        double X = ray.getDirection().getX();
+        double Y = ray.getDirection().getY();
+        double Z = ray.getDirection().getZ();
+
+        double A = _normal.getX();
+        double B = _normal.getY();
+        double C = _normal.getZ();
+        double D = _Q.getXValue()*_normal.getX() +
+                _Q.getYValue()*_normal.getY() +
+                _Q.getZValue()*_normal.getZ();
+
+        double t = (D - (A*a+B*b+C*c))/(A*X+B*Y+C*Z);
+
+        if(t<=0) return lp;
+
+        //  add the point
+        lp.add(new Point3D(a + t*X, b+t*Y, c+t*Z));
+        return lp;
 
     }
+
+    /**
+     * Function to check if a specific point is part of the plane
+     * @param p the point to check
+     * @return true if the point is in the plane, false otherwise
+     */
+    public boolean contains(Point3D p)
+    {
+        //  get the d in equation ax + by + cz = d
+        //  (a,b,c) : coordinates of normal vector
+        //  (x,y,z) : coordinates of _q
+        double d = _Q.getXValue()*_normal.getX() +
+                _Q.getYValue()*_normal.getY() +
+                _Q.getZValue()*_normal.getZ();
+
+        //   check the equation for the point p
+        return (p.getXValue()*_normal.getX() +
+                p.getYValue()*_normal.getY() +
+                p.getZValue()*_normal.getZ() == d);
+    }
+
 
 }
