@@ -2,37 +2,103 @@ package primitives;
 
 public class Point3D extends Point2D
 {
+    /**
+     * Field for the z-component
+     */
     protected Coordinate _z;
+
+
     // ***************** Constructors ********************** //
+
+    /**
+     * Default constructor, initialize with the (0,0,0) coordinate
+     */
     public Point3D()
     {
-        super(new Coordinate(0), new Coordinate(0));
-        _z = new Coordinate(0);
+        super(); //call father constructor
+        _z = new Coordinate(); //assign 0 to z
 
     }
+
+    /**
+     * Value constructor, create according to coordinates
+     * @param x x-component
+     * @param y y-component
+     * @param z z-component
+     */
     public Point3D(Coordinate x, Coordinate y, Coordinate z)
     {
-        super(new Coordinate(x.getCoordinate()), new Coordinate(y.getCoordinate()));
-        _z = new Coordinate(z.getCoordinate());
-    }
-
-    public Point3D(double x, double y, double z)
-    {
-        super(new Coordinate(x), new Coordinate(y));
+        super(x, y);
         _z = new Coordinate(z);
     }
-    public Point3D(Point3D point3D)
+
+    /**
+     * Value constructor, create according to double
+     * @param x x-component
+     * @param y y-component
+     * @param z z-component
+     */
+    public Point3D(double x, double y, double z)
     {
-        super(point3D._x, point3D._y);
-        _z = new Coordinate(point3D._z.getCoordinate());
+        super(x, y);
+        _z = new Coordinate(z);
     }
+
+
+    /**
+     * Copy constructor
+     * Copy the value of the parameter p into the object
+     * @param p the point to copy
+     */
+    public Point3D(Point3D p)
+    {
+        super(p);
+        _z = new Coordinate(p._z);
+    }
+
+
     // ***************** Getters/Setters ********************** //
+
+    /**
+     * Getter for z-component
+     * @return z-component of the vector (coordinate)
+     */
     public Coordinate getZ(){return _z;}
+
+    /**
+     * Getter for z-component value
+     * @return z-component value of the vector (double)
+     */
     public double getZValue() { return _z.getCoordinate(); }
 
-    public void setZ(Coordinate z){_z.setCoordinate(z.getCoordinate());}
+    /**
+     * Apply a coordinate to the _z field
+     * @param z the coordinate dto assign
+     */
+    public void setZ(Coordinate z)
+    {
+        _z.setCoordinate(z);
+    }
 
-    public void setPoint(Point3D p) { setX(p.getX()); setY(p.getY()); setZ(p.getZ()); }
+    /**
+     * Apply a value to the _z field
+     * @param z the coordinate to assign
+     */
+    public void setZ(double z)
+    {
+        _z.setCoordinate(z);
+    }
+
+    /**
+     * Copy the fields of p into the object
+     * @param p the point to copy
+     */
+    public void setPoint(Point3D p)
+    {
+        setX(p.getX());
+        setY(p.getY());
+        setZ(p.getZ());
+    }
 
     // ***************** Administration ******************** //
 
@@ -51,6 +117,12 @@ public class Point3D extends Point2D
        else return 1;
     }
 
+    /**
+     * Override the toString classical function
+     * Print out the coordinate
+     * @return the string representation of the coordinate
+     */
+    @Override
     public String toString()
     {
         return "(" + _x + ", " + _y + ", " + _z + ")";
@@ -59,13 +131,47 @@ public class Point3D extends Point2D
     // ***************** Operations ******************** //
 
 
-   // public void add(primitives.Vector vector);
-    //public void subtract(primitives.Vector vector);
-    public double distance(Point3D point)
+    /**
+     * Function to add between 2 points
+     * @param p the point to add to the call-object
+     */
+    public void add(Point3D p)
     {
-        double powerOfsubtraction_X = Math.pow((this._x.getCoordinate() - point._x.getCoordinate()),2);
-        double powerOfsubtraction_Y = Math.pow(this._y.getCoordinate() - point._y.getCoordinate(),2);
-        double powerOfsubtraction_Z = Math.pow(this._z.getCoordinate() - point._z.getCoordinate(),2);
-        return Math.sqrt(powerOfsubtraction_X + powerOfsubtraction_Y + powerOfsubtraction_Z);
+        _x.add(p._x);
+        _y.add(p._y);
+        _z.add(p._z);
+    }
+
+    /**
+     * Function to subtract between 2 points
+     * @param p the point to subtract to the call-object
+     */
+    public void subtract(Point3D p)
+    {
+        _x.subtract(p._x);
+        _y.subtract(p._y);
+        _z.subtract(p._z);
+    }
+
+
+
+    /**
+     * Return the distance between 2 3D-points
+     * @param p the point to calculate the distance to
+     * @return the distance between them (double)
+     */
+    public double distance(Point3D p)
+    {
+        //  create a point of substraction
+        Point3D sub = new Point3D(this);
+        sub.subtract(p);
+
+
+        double X = Math.pow(sub.getXValue(),2);
+        double Y = Math.pow(sub.getYValue(),2);
+        double Z = Math.pow(sub.getZValue(),2);
+
+        return Math.sqrt(X+Y+Z);
+
     }
 }

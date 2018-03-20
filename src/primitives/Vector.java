@@ -20,7 +20,7 @@ public class Vector
      * Initialize the _head with the parameter enterred
      * @param head value of the head field
      */
-    public Vector(Point3D head){this._head = new Point3D(head);}
+    public Vector(Point3D head){ _head = new Point3D(head); }
 
     /**
      * Copy constructor
@@ -49,10 +49,10 @@ public class Vector
      */
     public Vector(Point3D p1, Point3D p2)
     {
-        double x = - p1.getXValue() + p2.getXValue();
-        double y = - p1.getYValue() + p2.getYValue();
-        double z = - p1.getZValue() + p2.getZValue();
-        this._head = new Point3D(x,y,z);
+        Point3D p = new Point3D(p2);
+        p.subtract(p1);
+
+        _head = new Point3D(p);
     }
 
     // ***************** Getters/Setters ********************** //
@@ -104,19 +104,11 @@ public class Vector
      * Compare between 2 vectors according to their coordinates
      * @param vector the vector2 to compare
      * @return -1 if this vector is smaller, 1 if bigger and 0 if equals
+     * See also compareTo in primitives.Point3D
      */
     public int compareTo(Vector vector) // 0 if equal 1 if not equal
     {
-
-        if (length() > vector.length())
-            return 1;
-        else if (length() < vector.length())
-            return -1;
-
-        else return 0; // if vectors are equal
-
-        _head.CompareTo(vector._head);
-
+        return _head.compareTo(vector._head);
     }
 
     /**
@@ -126,10 +118,7 @@ public class Vector
     @Override
     public String toString()
     {
-        return String.format("(%s, %s, %s",
-                _head.getX(),
-                _head.getY(),
-                _head.getZ());
+        return _head.toString();
     }
 
 
@@ -141,9 +130,8 @@ public class Vector
      */
     public void add (Vector vector)
     {
-        _head._x.setCoordinate(getX() + vector.getX());
-        _head._y.setCoordinate(getY() + vector.getY());
-        _head._z.setCoordinate(getZ() + vector.getZ());
+
+        _head.add(vector._head);
     }
 
     /**
@@ -152,21 +140,21 @@ public class Vector
      */
     public void subtract (Vector vector)
     {
-        _head._x.setCoordinate(_head._x.getCoordinate() - vector._head._x.getCoordinate());
-        _head._y.setCoordinate(_head._y.getCoordinate() - vector._head._y.getCoordinate());
-        _head._z.setCoordinate(_head._z.getCoordinate() - vector._head.getZ().getCoordinate());
+        _head.subtract(vector._head);
     }
 
     /**
      * Function to apply scalar multiplication to a vector
      * The parameter scaling factor multiplies each coordinate of the vector
-     * @param scalingFactor multiplies each coordinate of the vector
+     * @param s multiplies each coordinate of the vector
      */
-    public void scale(double scalingFactor)
+    public void scale(double s)
     {
-        _head._x.setCoordinate(_head._x.getCoordinate() * scalingFactor);
-        _head._y.setCoordinate(_head._y.getCoordinate() * scalingFactor);
-        _head._z.setCoordinate(_head._z.getCoordinate() * scalingFactor);
+        double xx = _head.getXValue()*s,
+                yy = _head.getYValue()*s,
+                zz = _head.getZValue()*s;
+
+        _head = new Point3D(xx,yy,zz);
     }
 
     /**
@@ -176,19 +164,13 @@ public class Vector
      */
     public Vector crossProduct(Vector vector)
     {
-        double x_component =
-                this._head._y.getCoordinate()*vector._head._z.getCoordinate()
-                - this._head._z.getCoordinate()*vector._head._y.getCoordinate();
+        double x_component = getY()*vector.getZ() - getZ()*vector.getY();
 
-        double y_component =
-                this._head._z.getCoordinate()*vector._head._x.getCoordinate()
-                - this._head._x.getCoordinate()*vector._head._z.getCoordinate();
+        double y_component = getZ()*vector.getX() - getX()*vector.getZ();
 
-        double z_component =
-                this._head._x.getCoordinate()*vector._head._y.getCoordinate()
-                - this._head._y.getCoordinate()*vector._head._x.getCoordinate();
+        double z_component = getX()*vector.getY()-getY()*vector.getZ();
 
-        return new Vector(x_component,y_component,z_component);
+        return new Vector(x_component, y_component,z_component);
     }
 
     /**
@@ -197,11 +179,7 @@ public class Vector
      */
     public double length()
     {
-        double powerOf_X = Math.pow(_head.getXValue(),2);
-        double powerOf_Y = Math.pow(_head.getYValue(),2);
-        double powerOf_Z = Math.pow(_head.getZValue(),2);
-
-        return Math.sqrt(powerOf_X + powerOf_Y + powerOf_Z);
+        return _head.distance(new Point3D(0,0,0));
     }
 
     /**
@@ -240,9 +218,9 @@ public class Vector
      */
     public double dotProduct(Vector vector)
     {
-        double x = this._head._x.getCoordinate()* vector._head._x.getCoordinate();
-        double y = this._head._y.getCoordinate()* vector._head._y.getCoordinate();
-        double z = this._head._z.getCoordinate()* vector._head._z.getCoordinate();
+        double x = getX()* vector.getX();
+        double y = getY()* vector.getY();
+        double z = getZ()* vector.getZ();
 
         return x+y+z;
     }
@@ -253,10 +231,12 @@ public class Vector
      */
     public boolean isNull()
     {
-        return (_head._x.getCoordinate() == 0 &&
-                _head._y.getCoordinate() == 0 &&
-                _head._z.getCoordinate() == 0);
+        return _head.compareTo(new Point3D(0,0,0)) == 0;
     }
 
+    /**
+     * Static function to get the null vector
+     * @return an instance of null vector
+     */
     public static Vector Null() { return new Vector(0,0,0); }
 }

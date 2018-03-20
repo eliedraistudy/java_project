@@ -44,10 +44,19 @@ public class Coordinate implements Comparable<Coordinate>
 
     /**
      * Set the field coordinate
-     * @param coordinate the value to assign to the coordinate
+     * @param coordinate the coordinate to assign
      */
-    public void setCoordinate(double coordinate) {
-        _coordinate = coordinate;
+    public void setCoordinate(Coordinate coordinate) {
+        _coordinate = coordinate._coordinate;
+    }
+
+    /**
+     * Set the field coordinate
+     * @param c the value to assign
+     */
+    public void setCoordinate(double c)
+    {
+        _coordinate = c;
     }
 
     // ***************** Administration ******************** //
@@ -57,8 +66,8 @@ public class Coordinate implements Comparable<Coordinate>
      * @param coordinate the coordinate to compare to
      * @return 0 if equals, 1 if the object bigger and -1 if coordinate bigger
      */
-    public int compareTo(Coordinate coordinate)
-    {
+    @Override
+    public int compareTo(Coordinate coordinate) {
         return Double.compare(_coordinate,coordinate._coordinate);
     }
 
@@ -73,12 +82,6 @@ public class Coordinate implements Comparable<Coordinate>
         _coordinate+= coordinate._coordinate;
     }
 
-    @Override
-    public String toString()
-    {
-        return String.format("%2f", _coordinate);
-    }
-
     /**
      * Substract value to an existing coordinate
      * @param coordinate the value to substract
@@ -87,5 +90,16 @@ public class Coordinate implements Comparable<Coordinate>
     {
         _coordinate-=coordinate._coordinate;
     }
+
+    /**
+     * Function to get string representation of a coordinate
+     * @return string representation
+     */
+    @Override
+    public String toString()
+    {
+        return String.format("%2f", _coordinate);
+    }
+
 }
 

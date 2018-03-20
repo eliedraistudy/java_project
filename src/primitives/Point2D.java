@@ -19,8 +19,8 @@ public abstract class Point2D
      * Initialize a null vector
      */
     public Point2D() {
-        _x = new Coordinate(0);
-        _y = new Coordinate(0);
+        _x = new Coordinate();
+        _y = new Coordinate();
     }
 
     /**
@@ -30,51 +30,71 @@ public abstract class Point2D
      * @param y the y coordinate to copy
      */
     public Point2D(Coordinate x, Coordinate y) {
-        _x.setCoordinate(x.getCoordinate());
-        _y.setCoordinate(y.getCoordinate());
+        _x = new Coordinate(x);
+        _y = new Coordinate(y);
+    }
+
+    /**
+     * Value constructor
+     * Initialize the fields with the value with given parameters
+     * @param x x-value coordinate
+     * @param y y-value coordinate
+     */
+    public Point2D(double x, double y)
+    {
+        _x = new Coordinate(x);
+        _y = new Coordinate(y);
     }
 
     /**
      * Copy constructor
      * Initialize the vector with the vector given in parameter
-     * @param point2D the vector to copy
+     * @param p the vector to copy
      */
-    public Point2D(Point2D point2D) {
-        _x = new Coordinate(point2D._x.getCoordinate());
-        _y = new Coordinate(point2D._y.getCoordinate());
+    public Point2D(Point2D p) {
+        _x = new Coordinate(p.getX());
+        _y = new Coordinate(p.getY());
     }
 
     // ***************** Getters/Setters ********************** //
 
     /**
      * Get the x coordinate
-     * @return x coordinate
+     * @return x coordinate (coordinate)
      */
     public Coordinate getX() { return _x; }
+
+    /**
+     * Get the x coordinate value
+     * @return x value for the 2D point (double)
+     */
     public double getXValue() {return _x.getCoordinate(); }
 
     /**
      * Get the y coordinate
-     * @return y coordinate
+     * @return y coordinate (coordinate)
      */
     public Coordinate getY() {
         return _y;
     }
+
+    /**
+     * Get the y coordinate value
+     * @return y value for the 2D point (double)
+     */
     public double getYValue() {return _y.getCoordinate(); }
 
     /**
      * Assign the value given in parameter to x
-     * @param _x the value to assign
+     * @param x the value to assign
      */
-    public void setX(Coordinate _x) {
-        this._x.setCoordinate(_x.getCoordinate());
-    }
+    public void setX(Coordinate x){ _x.setCoordinate(x); }
 
     /**
      * Assign the value given in parameter to y
-     * @param _y the value to assign
+     * @param y the value to assign
      */
-    public void setY(Coordinate _y) { this._y.setCoordinate(_y.getCoordinate()); }
+    public void setY(Coordinate y) { _y.setCoordinate(y); }
 
     // ***************** Administration ******************** //
 
