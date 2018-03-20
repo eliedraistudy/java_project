@@ -175,7 +175,7 @@ public class Vector
 
     /**
      * Find the length of the vector
-     * @return
+     * @return size of the vector
      */
     public double length()
     {
