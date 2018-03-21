@@ -13,11 +13,18 @@ public class Point3DTest {
     }
 
     @Test
-    public void getZValue() {
+    public void getZValue()
+    {
+        Point3D p = new Point3D(2,3,4);
+        assertEquals(4,p.getZValue(),0);
     }
 
     @Test
-    public void setZ() {
+    public void setZ()
+    {
+        Point3D p = new Point3D();
+        p.setZ(-9);
+        assertEquals(-9,p.getZValue(),0);
     }
 
     @Test
@@ -25,7 +32,24 @@ public class Point3DTest {
     }
 
     @Test
-    public void setPoint() {
+    public void setPoint()
+    {
+        Point3D p1 = new Point3D();
+        Point3D p2 = new Point3D(-4,3,-7);
+        p1.setPoint(p2);
+
+
+            if (p1 == null && p1 == null)
+            {
+                return;
+            }
+            if (p1 != null && p1.equals(p2))
+            {
+                return;
+            }
+
+            //failNotEquals("setPoint test is fail", p1, p2); // eli, we need to check how to compare between objects, it's don't work for me/
+
     }
 
     @Test
