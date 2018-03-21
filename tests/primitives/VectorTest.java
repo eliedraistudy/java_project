@@ -16,7 +16,7 @@ public class VectorTest {
     @Test
     public void getX()
     {
-        
+        //
     }
 
     @Test
