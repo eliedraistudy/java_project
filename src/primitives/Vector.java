@@ -168,7 +168,7 @@ public class Vector
 
         double y_component = getZ()*vector.getX() - getX()*vector.getZ();
 
-        double z_component = getX()*vector.getY()-getY()*vector.getZ();
+        double z_component = getX()*vector.getY()-getY()*vector.getX();
 
         return new Vector(x_component, y_component,z_component);
     }
