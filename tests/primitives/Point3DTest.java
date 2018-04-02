@@ -10,14 +10,14 @@ public class Point3DTest {
     @Test
     public void getZ() {
         Point3D p = new Point3D();
-        assertEquals(0,p.getZValue(),0);
+        assertEquals(0,p.getZ().getCoordinate(),0);
     }
 
     @Test
     public void getZValue()
     {
         Point3D p = new Point3D(2,3,4);
-        assertEquals(4,p.getZValue(),0);
+        assertEquals(4,p.getZ().getCoordinate(),0);
     }
 
     @Test
@@ -25,7 +25,7 @@ public class Point3DTest {
     {
         Point3D p = new Point3D();
         p.setZ(-9);
-        assertEquals(-9,p.getZValue(),0);
+        assertEquals(-9,p.getZ().getCoordinate(),0);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class Point3DTest {
     public void getXValue()
     {
         Point3D p = new Point3D(-32.667,2,-1);
-        assertEquals(-32.667,p.getXValue(),0);
+        assertEquals(-32.667,p.getX().getCoordinate(),0);
     }
 
     @Test
@@ -113,7 +113,7 @@ public class Point3DTest {
     public void getYValue()
     {
         Point3D p = new Point3D(-32.667,2.234,-1);
-        assertEquals(2.234,p.getYValue(),0);
+        assertEquals(2.234,p.getY().getCoordinate(),0);
     }
 
     @Test
@@ -121,7 +121,7 @@ public class Point3DTest {
     {
         Point3D p = new Point3D(-32.667,2.234,-1);
         p.setX(new Coordinate(10.27));
-        assertEquals(10.27,p.getXValue(),0);
+        assertEquals(10.27,p.getX().getCoordinate(),0);
     }
 
     @Test
@@ -129,6 +129,6 @@ public class Point3DTest {
     {
         Point3D p = new Point3D(-32.667,2.234,-1);
         p.setY(new Coordinate(10.27));
-        assertEquals(10.27,p.getYValue(),0);
+        assertEquals(10.27,p.getY().getCoordinate(),0);
     }
 }

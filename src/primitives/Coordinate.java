@@ -71,6 +71,12 @@ public class Coordinate implements Comparable<Coordinate>
         return Double.compare(_coordinate,coordinate._coordinate);
     }
 
+    @Override
+    public boolean equals(Object o){
+        Coordinate c = (Coordinate)o;
+        return c.getCoordinate() == getCoordinate();
+    }
+
     // ***************** Operations ******************** //
 
     /**

@@ -64,11 +64,6 @@ public abstract class Point2D
      */
     public Coordinate getX() { return _x; }
 
-    /**
-     * Get the x coordinate value
-     * @return x value for the 2D point (double)
-     */
-    public double getXValue() {return _x.getCoordinate(); }
 
     /**
      * Get the y coordinate
@@ -78,11 +73,6 @@ public abstract class Point2D
         return _y;
     }
 
-    /**
-     * Get the y coordinate value
-     * @return y value for the 2D point (double)
-     */
-    public double getYValue() {return _y.getCoordinate(); }
 
     /**
      * Assign the value given in parameter to x

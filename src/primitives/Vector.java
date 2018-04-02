@@ -49,10 +49,9 @@ public class Vector
      */
     public Vector(Point3D p1, Point3D p2)
     {
-        Point3D p = new Point3D(p2);
-        p.subtract(p1);
-
-        _head = new Point3D(p);
+        Vector v = new Vector(p2);
+        v.subtract(new Vector(p1));
+        _head = new Point3D(v.getHead());
     }
 
     // ***************** Getters/Setters ********************** //
@@ -62,24 +61,6 @@ public class Vector
      * @return the value of _head
      */
     public Point3D getHead(){ return _head; }
-
-    /**
-     * Getter for x component in the vector
-     * @return vector's x component
-     */
-    public double getX() { return _head.getXValue(); }
-
-    /**
-     * Getter for y component in the vector
-     * @return vector's y component
-     */
-    public double getY() { return _head.getYValue(); }
-
-    /**
-     * Getter for z component in the vector
-     * @return vector's z component
-     */
-    public double getZ() { return _head.getZValue(); }
 
 
     /**
@@ -111,6 +92,7 @@ public class Vector
         return _head.compareTo(vector._head);
     }
 
+
     /**
      * Override of toString
      * @return the string representation of the vector (3 coordinates)
@@ -130,8 +112,7 @@ public class Vector
      */
     public void add (Vector vector)
     {
-
-        _head.add(vector._head);
+        _head.add(vector);
     }
 
     /**
@@ -140,7 +121,7 @@ public class Vector
      */
     public void subtract (Vector vector)
     {
-        _head.subtract(vector._head);
+        _head.subtract(vector);
     }
 
     /**
@@ -150,9 +131,9 @@ public class Vector
      */
     public void scale(double s)
     {
-        double xx = _head.getXValue()*s,
-                yy = _head.getYValue()*s,
-                zz = _head.getZValue()*s;
+        double xx = _head.getX().getCoordinate()*s,
+                yy = _head.getY().getCoordinate()*s,
+                zz = _head.getZ().getCoordinate()*s;
 
         _head = new Point3D(xx,yy,zz);
     }
@@ -162,13 +143,22 @@ public class Vector
      * @param vector the vector to do the cross product with
      * @return the resulting vector of the dot product
      */
-    public Vector crossProduct(Vector vector)
-    {
-        double x_component = getY()*vector.getZ() - getZ()*vector.getY();
+    public Vector crossProduct(Vector vector) {
 
-        double y_component = getZ()*vector.getX() - getX()*vector.getZ();
+        //  coordinate of the current object
+        double x = getHead().getX().getCoordinate();
+        double y = getHead().getY().getCoordinate();
+        double z = getHead().getZ().getCoordinate();
 
-        double z_component = getX()*vector.getY()-getY()*vector.getX();
+        //  coordinate of the vector
+        double vx = vector.getHead().getX().getCoordinate();
+        double vy = vector.getHead().getY().getCoordinate();
+        double vz = vector.getHead().getZ().getCoordinate();
+
+        //  x,y,z component
+        double x_component = y*vz - z*vy;
+        double y_component = z*vx - x*vz;
+        double z_component = x*vy-y*vx;
 
         return new Vector(x_component, y_component,z_component);
     }
@@ -184,7 +174,7 @@ public class Vector
 
     /**
      * Normalize the vector to be with length of 1
-     * @throws Exception
+     * @throws Exception if null vector
      * SEE ALSO function normalVector()
      */
     public void normalize() throws Exception
@@ -198,7 +188,7 @@ public class Vector
     /**
      * Get the vector which correspond to this one but with length of 1
      * @return unit_vector
-     * @throws Exception
+     * @throws Exception if null vector
      * SEE ALSO function normalize()
      */
     public Vector normalVector() throws Exception
@@ -218,9 +208,13 @@ public class Vector
      */
     public double dotProduct(Vector vector)
     {
-        double x = getX()* vector.getX();
-        double y = getY()* vector.getY();
-        double z = getZ()* vector.getZ();
+        //  get the coordinate of the vector
+        double x = getHead().getX().getCoordinate()*
+                vector.getHead().getX().getCoordinate();
+        double y = getHead().getY().getCoordinate()*
+                vector.getHead().getY().getCoordinate();
+        double z = getHead().getZ().getCoordinate()*
+                vector.getHead().getZ().getCoordinate();
 
         return x+y+z;
     }
@@ -231,7 +225,7 @@ public class Vector
      */
     public boolean isNull()
     {
-        return _head.compareTo(new Point3D(0,0,0)) == 0;
+        return compareTo(Null()) == 0;
     }
 
     /**

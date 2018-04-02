@@ -17,7 +17,7 @@ public class VectorTest {
     public void getX()
     {
         Vector v = new Vector(-10.345,2,3);
-        assertEquals(v.getX(), -10.345, 0 );
+        assertEquals(v.getHead().getX().getCoordinate(), -10.345, 0 );
 
     }
 
@@ -25,14 +25,14 @@ public class VectorTest {
     public void getY()
     {
         Vector v = new Vector(-10.345,2.4567778,3);
-        assertEquals(v.getY(), 2.4567778, 0 );
+        assertEquals(v.getHead().getY().getCoordinate(), 2.4567778, 0 );
     }
 
     @Test
     public void getZ()
     {
         Vector v = new Vector(-10.345,2.4567778,0.345);
-        assertEquals(v.getZ(), 0.345, 0 );
+        assertEquals(v.getHead().getZ().getCoordinate(), 0.345, 0 );
     }
 
     @Test
@@ -117,20 +117,13 @@ public class VectorTest {
     @Test
     public void normalize() throws Exception
     {
-        Vector v1 = new Vector(-2,2,1);
+        Vector v1 = new Vector(-5,2,1);
         v1.normalize();
 
-        double a = 2/3;
-        double b =1/3;
-
-
-
-        assertEquals(v1.compareTo(new Vector(-a,a,b)),0,0);
+        //  test length of 1
+        assertEquals(1,v1.length(),0);
     }
 
-    @Test
-    public void normalVector() {
-    }
 
     @Test
     public void dotProduct() {

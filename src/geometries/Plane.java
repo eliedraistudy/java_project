@@ -103,6 +103,7 @@ public class Plane
      * @param ray
      * @return list of 3D points for intersections, empty list if no intersection
      */
+    /*
     public List<Point3D> FindIntersections(Ray ray)
     {
         Vector w = new Vector(ray.getDirection());
@@ -140,13 +141,14 @@ public class Plane
         lp.add(new Point3D(a + t*X, b+t*Y, c+t*Z));
         return lp;
 
-    }
+    }*/
 
     /**
      * Function to check if a specific point is part of the plane
      * @param p the point to check
      * @return true if the point is in the plane, false otherwise
      */
+    /*
     public boolean contains(Point3D p)
     {
         //  get the d in equation ax + by + cz = d
@@ -161,6 +163,7 @@ public class Plane
                 p.getYValue()*_normal.getY() +
                 p.getZValue()*_normal.getZ() == d);
     }
+    */
 
 
 }

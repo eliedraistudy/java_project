@@ -66,12 +66,6 @@ public class Point3D extends Point2D
     public Coordinate getZ(){return _z;}
 
     /**
-     * Getter for z-component value
-     * @return z-component value of the vector (double)
-     */
-    public double getZValue() { return _z.getCoordinate(); }
-
-    /**
      * Apply a coordinate to the _z field
      * @param z the coordinate dto assign
      */
@@ -100,6 +94,7 @@ public class Point3D extends Point2D
         setZ(p.getZ());
     }
 
+
     // ***************** Administration ******************** //
 
     /**
@@ -110,12 +105,26 @@ public class Point3D extends Point2D
     @Override
     public int compareTo(Point3D p)
     {
-       if(getXValue() == p.getXValue() &&
-               getYValue() == p.getYValue() &&
-               getZValue() == p.getZValue())
+       if(getX().getCoordinate() == p.getX().getCoordinate() &&
+               getY().getCoordinate() == p.getY().getCoordinate() &&
+               getY().getCoordinate() == p.getY().getCoordinate())
            return 0;
        else return 1;
     }
+
+    /**
+     * Override the equal method for comparison
+     * @param o the object to check equality with
+     * @return true if all fields are the same, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        Point3D p = (Point3D)o;
+        return p.getX().equals(getX()) &&
+                p.getY().equals(getY()) &&
+                p.getZ().equals((getZ()));
+    }
+
 
     /**
      * Override the toString classical function
@@ -132,25 +141,25 @@ public class Point3D extends Point2D
 
 
     /**
-     * Function to add between 2 points
-     * @param p the point to add to the call-object
+     * Function to add a vector to a point
+     * @param v the vector to add to the call-object
      */
-    public void add(Point3D p)
+    public void add(Vector v)
     {
-        _x.add(p._x);
-        _y.add(p._y);
-        _z.add(p._z);
+        _x.add(v.getHead().getX());
+        _y.add(v.getHead().getY());
+        _z.add(v.getHead().getZ());
     }
 
     /**
      * Function to subtract between 2 points
-     * @param p the point to subtract to the call-object
+     * @param v the vector to subtract to the call-object
      */
-    public void subtract(Point3D p)
+    public void subtract(Vector v)
     {
-        _x.subtract(p._x);
-        _y.subtract(p._y);
-        _z.subtract(p._z);
+        _x.subtract(v.getHead().getX());
+        _y.subtract(v.getHead().getY());
+        _z.subtract(v.getHead().getZ());
     }
 
 
@@ -162,14 +171,14 @@ public class Point3D extends Point2D
      */
     public double distance(Point3D p)
     {
-        //  create a point of substraction
+        //  create a point of subtraction
         Point3D sub = new Point3D(this);
-        sub.subtract(p);
+        sub.subtract(new Vector(p));
 
 
-        double X = Math.pow(sub.getXValue(),2);
-        double Y = Math.pow(sub.getYValue(),2);
-        double Z = Math.pow(sub.getZValue(),2);
+        double X = Math.pow(sub.getX().getCoordinate(),2);
+        double Y = Math.pow(sub.getY().getCoordinate(),2);
+        double Z = Math.pow(sub.getZ().getCoordinate(),2);
 
         return Math.sqrt(X+Y+Z);
 
