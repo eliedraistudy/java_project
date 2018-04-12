@@ -1,6 +1,6 @@
 package primitives;
 
-public class Vector
+public class Vector implements Comparable<Vector>
 {
     /**
      * Represent the head of the vector
@@ -87,9 +87,24 @@ public class Vector
      * @return -1 if this vector is smaller, 1 if bigger and 0 if equals
      * See also compareTo in primitives.Point3D
      */
+    @Override
     public int compareTo(Vector vector) // 0 if equal 1 if not equal
     {
         return _head.compareTo(vector._head);
+    }
+
+    @Override
+    public boolean equals(Object o){
+
+        double this_x = getHead().getX().getCoordinate();
+        double this_y = getHead().getY().getCoordinate();
+        double this_z = getHead().getZ().getCoordinate();
+
+        double x = getHead().getX().getCoordinate();
+        double y = getHead().getY().getCoordinate();
+        double z = getHead().getZ().getCoordinate();
+
+        return this_x == x && this_y == y && this_z == z;
     }
 
 
@@ -169,7 +184,12 @@ public class Vector
      */
     public double length()
     {
-        return _head.distance(new Point3D(0,0,0));
+        double x = _head.getX().getCoordinate();
+        double y = _head.getY().getCoordinate();
+        double z = _head.getZ().getCoordinate();
+
+
+        return Math.sqrt(x*x+y*y+z*z);
     }
 
     /**

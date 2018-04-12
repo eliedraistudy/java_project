@@ -88,12 +88,33 @@ public abstract class Point2D implements Comparable<Point2D>
 
     // ***************** Administration ******************** //
 
-    /**
-     * To compare between 2 point2D
-     * Comparison according to the values in the fields
-     * @param point2D the point2D to compare to
-     * @return 1 if differents and 0 if equals
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * compareTo
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Point2D - the point to compare to this one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * 0 if equal points
+     * 1 otherwise
+     *
+     * -------
+     * MEANING
+     * -------
+     * compare between 2 points
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to add vectors
+     *************************************************/
     @Override
     public int compareTo(Point2D point2D) {
         if (this._x.getCoordinate() == point2D._x.getCoordinate()
@@ -103,6 +124,6 @@ public abstract class Point2D implements Comparable<Point2D>
             return 1;
     }
 
-    // ***************** Administration ******************** //
+    //  abstract function to inheritance
     public abstract int compareTo(Point3D point3D);
 }

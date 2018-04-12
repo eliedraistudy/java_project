@@ -5,6 +5,8 @@ public class Coordinate implements Comparable<Coordinate>
     /**
      * Represent the value of the coordinate
      */
+
+    //  value of the coordinate
     private double _coordinate;
 
     // ***************** Constructors ********************** //
@@ -62,11 +64,34 @@ public class Coordinate implements Comparable<Coordinate>
 
     // ***************** Administration ******************** //
 
-    /**
-     * Compare 2 coordinates
-     * @param coordinate the coordinate to compare to
-     * @return 0 if equals, 1 if the object bigger and -1 if coordinate bigger
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * compareTo
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * coordinate - the coordinate to compare with
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * 0 if equals
+     * 1 if this bigger
+     * -1 if this lower
+     *
+     * -------
+     * MEANING
+     * -------
+     * Check equality between 2 coordinates
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to check equality
+     *************************************************/
     @Override
     public int compareTo(Coordinate coordinate) {
         return Double.compare(_coordinate,coordinate._coordinate);
@@ -77,6 +102,34 @@ public class Coordinate implements Comparable<Coordinate>
      * @param o the coordinate to compare
      * @return true if the values are equals false otherwise
      */
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * equals
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * object - the object to compare with
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * True if the coordinates values are the same
+     * False otherwise
+     *
+     * -------
+     * MEANING
+     * -------
+     * Check equality between 2 coordinates
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to check equality
+     *************************************************/
     @Override
     public boolean equals(Object o){
         Coordinate c = (Coordinate)o;
@@ -89,24 +142,95 @@ public class Coordinate implements Comparable<Coordinate>
      * Add value to an existing coordinate
      * @param coordinate the value to add
      */
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * add
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * coordinate - the coordinate to add to this one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * add the value of the parameter coordinate to this one
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to add coordinates
+     *************************************************/
     public void add(Coordinate coordinate)
     {
         _coordinate += coordinate._coordinate;
     }
 
-    /**
-     * Subtract value to an existing coordinate
-     * @param coordinate the value to substract
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * subtract
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * coordinate - the coordinate to subtract to this one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * subtract the value of the parameter coordinate from this one
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to subtract coordinate
+     *************************************************/
     public void subtract (Coordinate coordinate)
     {
         _coordinate-=coordinate._coordinate;
     }
 
-    /**
-     * Function to get string representation of a coordinate
-     * @return string representation with 2 floating points
-     */
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * toString
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * string representation of the coordinate
+     *
+     * -------
+     * MEANING
+     * -------
+     * get the string representation of the coordinate with 2 floating points
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to print out the coordinate
+     *************************************************/
     @Override
     public String toString()
     {

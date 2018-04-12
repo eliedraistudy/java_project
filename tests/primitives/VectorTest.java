@@ -127,8 +127,16 @@ public class VectorTest {
     @Test public void normalizeTest() throws Exception
     {
         Vector v1 = new Vector();
-        v1.normalize();
-        fail();
+        String s = "";
+        try{
+            v1.normalize();
+        }
+        catch (Exception e) {
+            s = e.getMessage();
+        }
+
+
+        assertEquals(s, "Error, null vector");
     }
 
 
@@ -141,11 +149,9 @@ public class VectorTest {
 
     @Test
     public void isNull() {
+        Vector v1 = new Vector();
+        assertEquals(v1, new Vector(0,0,0));
+
     }
 
-    @Test
-    public void nullTest()
-
-    {
-    }
 }

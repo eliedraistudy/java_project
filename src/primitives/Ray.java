@@ -12,12 +12,12 @@ public class Ray
     // ***************** Constructors ********************** //
 
     /**
-     * Default constructor, initialize with point of origin (0,0,0) and vector (1,1,1)
+     * Default constructor, initialize with point of origin (0,0,0) and vector (1,0,0)
      */
     public Ray()
     {
         _POO = new Point3D();
-        _direction = new Vector(1,1,1);
+        _direction = new Vector(1,0,0); // no null vector
     }
 
     /**
@@ -48,13 +48,13 @@ public class Ray
      * Setting the POO
      * @param POO the values to set
      */
-    public void setPOO(Point3D POO) {_POO = POO; }
+    public void setPOO(Point3D POO) {_POO = new Point3D(POO); }
 
     /**
      * Setting the direction
      * @param direction
      */
-    public void setDirection(Vector direction) { _direction = direction;}
+    public void setDirection(Vector direction) { _direction = new Vector(direction);}
 
     /**
      * Getting the direction vector

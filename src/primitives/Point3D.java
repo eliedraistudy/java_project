@@ -97,11 +97,33 @@ public class Point3D extends Point2D
 
     // ***************** Administration ******************** //
 
-    /**
-     * Override the compare to function
-     * @param p the point to compare
-     * @return 0 if all coordinates equals, 1 otherwise
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * compareTo
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Point3D - the point to compare to this one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * 0 if equal points
+     * 1 otherwise
+     *
+     * -------
+     * MEANING
+     * -------
+     * compare between 2 3D-points
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to compare points
+     *************************************************/
     @Override
     public int compareTo(Point3D p)
     {
@@ -112,11 +134,33 @@ public class Point3D extends Point2D
        else return 1;
     }
 
-    /**
-     * Override the equal method for comparison
-     * @param o the object to check equality with
-     * @return true if all fields are the same, false otherwise
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * equals
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Object - the point to compare to this one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * True if equal points
+     * False otherwise
+     *
+     * -------
+     * MEANING
+     * -------
+     * compare between 2 3D-points
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to compare points
+     *************************************************/
     @Override
     public boolean equals(Object o) {
         Point3D p = (Point3D)o;
@@ -126,11 +170,31 @@ public class Point3D extends Point2D
     }
 
 
-    /**
-     * Override the toString classical function
-     * Print out the coordinate
-     * @return the string representation of the coordinate
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * toString
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * string representation of the point
+     *
+     * -------
+     * MEANING
+     * -------
+     * get the string representation of the point
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * every function in which we need to print out points
+     *************************************************/
     @Override
     public String toString()
     {
@@ -139,10 +203,32 @@ public class Point3D extends Point2D
 
     // ***************** Operations ******************** //
 
-    /**
-     * Function to add a vector to a point
-     * @param v the vector to add to the call-object
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * add
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Vector - the vector to add to the current point
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * By given a 3D-point p, add to it the translation with the vector given in parameters
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * Point3D.subtract
+     *************************************************/
     public void add(Vector v)
     {
         //  add for each coordinate the corresponding coordinate in the vector
@@ -152,40 +238,75 @@ public class Point3D extends Point2D
         _z.add(v.getHead().getZ());
     }
 
-    /**
-     * Function to subtract between 2 points
-     * @param v the vector to subtract to the call-object
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * subtract
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Vector - the vector to subtract to the current point
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * By given a 3D-point p, add to it the translation with the inverse
+     * of the vector given in parameter
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * Point3D.add
+     * Vector.scale
+     *************************************************/
     public void subtract(Vector v)
     {
-        //  subtract for each coordinate the corresponding coordinate in the vector
-        //  for example : x_new = _x - v._x
-        _x.subtract(v.getHead().getX());
-        _y.subtract(v.getHead().getY());
-        _z.subtract(v.getHead().getZ());
+        //  invert the vector v
+        v.scale(-1);
+        //  add the invert of v which is the same than subtract v itself
+        add(v);
     }
 
 
 
-    /**
-     * Return the distance between 2 3D-points
-     * @param p the point to calculate the distance to
-     * @return the distance between them (double)
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * distance
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Point3D - the point to calculate the distance from
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * double - distance between 2 points
+     *
+     * -------
+     * MEANING
+     * -------
+     * Calculate the distance between 2 3D points
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * Vector.length
+     *************************************************/
     public double distance(Point3D p)
     {
-        //  create a point of subtraction
-        Point3D sub = new Point3D(this);
-
-        //  create the relative point and calculate the distance according
-        sub.subtract(new Vector(p));
-
-
-        double X = Math.pow(sub.getX().getCoordinate(),2);
-        double Y = Math.pow(sub.getY().getCoordinate(),2);
-        double Z = Math.pow(sub.getZ().getCoordinate(),2);
-
-        return Math.sqrt(X+Y+Z);
-
+        //  get the vector from a point to an other
+        Vector v = new Vector(this, p);
+        //return this vector's length
+        return v.length();
     }
 }
