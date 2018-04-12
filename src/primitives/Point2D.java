@@ -1,6 +1,6 @@
 package primitives;
 
-public abstract class Point2D
+public abstract class Point2D implements Comparable<Point2D>
 {
 
     /**
@@ -94,8 +94,8 @@ public abstract class Point2D
      * @param point2D the point2D to compare to
      * @return 1 if differents and 0 if equals
      */
-    public int compareTo(Point2D point2D) // return 0 if equal and 1 id not equal
-    {
+    @Override
+    public int compareTo(Point2D point2D) {
         if (this._x.getCoordinate() == point2D._x.getCoordinate()
                 && this._y.getCoordinate() == point2D._y.getCoordinate())
             return 0;

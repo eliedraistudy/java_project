@@ -13,6 +13,7 @@ public class Coordinate implements Comparable<Coordinate>
      * Default constructor, initialize with 0
      */
     public Coordinate() {
+
         _coordinate = 0;
     }
 
@@ -71,6 +72,11 @@ public class Coordinate implements Comparable<Coordinate>
         return Double.compare(_coordinate,coordinate._coordinate);
     }
 
+    /**
+     * Function to compare between 2 coordinates
+     * @param o the coordinate to compare
+     * @return true if the values are equals false otherwise
+     */
     @Override
     public boolean equals(Object o){
         Coordinate c = (Coordinate)o;
@@ -85,11 +91,11 @@ public class Coordinate implements Comparable<Coordinate>
      */
     public void add(Coordinate coordinate)
     {
-        _coordinate+= coordinate._coordinate;
+        _coordinate += coordinate._coordinate;
     }
 
     /**
-     * Substract value to an existing coordinate
+     * Subtract value to an existing coordinate
      * @param coordinate the value to substract
      */
     public void subtract (Coordinate coordinate)
@@ -99,7 +105,7 @@ public class Coordinate implements Comparable<Coordinate>
 
     /**
      * Function to get string representation of a coordinate
-     * @return string representation
+     * @return string representation with 2 floating points
      */
     @Override
     public String toString()

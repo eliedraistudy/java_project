@@ -124,9 +124,19 @@ public class VectorTest {
         assertEquals(1,v1.length(),0);
     }
 
+    @Test public void normalizeTest() throws Exception
+    {
+        Vector v1 = new Vector();
+        v1.normalize();
+        fail();
+    }
+
 
     @Test
     public void dotProduct() {
+        Vector v1 = new Vector(1,2,3);
+        Vector v2 = new Vector(-3,-2,4);
+        assertEquals(5, v1.dotProduct(v2), 0);
     }
 
     @Test

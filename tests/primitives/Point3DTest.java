@@ -14,13 +14,6 @@ public class Point3DTest {
     }
 
     @Test
-    public void getZValue()
-    {
-        Point3D p = new Point3D(2,3,4);
-        assertEquals(4,p.getZ().getCoordinate(),0);
-    }
-
-    @Test
     public void setZ()
     {
         Point3D p = new Point3D();
@@ -28,9 +21,6 @@ public class Point3DTest {
         assertEquals(-9,p.getZ().getCoordinate(),0);
     }
 
-    @Test
-    public void setZ1() {
-    }
 
     @Test
     public void setPoint()
@@ -38,7 +28,7 @@ public class Point3DTest {
         Point3D p1 = new Point3D();
         Point3D p2 = new Point3D(-4,3,-7);
         p1.setPoint(p2);
-        assertEquals(p1.compareTo(p2),0,0);
+        assertEquals(0, p1.compareTo(p2),0);
     }
 
     /**
@@ -73,19 +63,25 @@ public class Point3DTest {
     public void add()
     {
         Point3D p1 = new Point3D(-3,5,1);
-        Point3D p2 = new Point3D(7,-8,0);
-     //   assertEquals(p1.add(p2),n);
+        Vector v = new Vector(7,-8,0);
+        p1.add(v);
+        assertEquals(p1, new Point3D(-3+7, 5-8, 1+0));
     }
 
     @Test
     public void subtract() {
+        Point3D p1 = new Point3D(-3,5,1);
+        Vector v = new Vector(7,-8,0);
+        p1.subtract(v);
+        assertEquals(p1, new Point3D(-3-7, 5+8, 1-0));
     }
 
     @Test
     public void distance()
     {
-        //Point3D p = new Point3D(-2,2,-1);
-
+        Point3D p = new Point3D(-2,2,-1);
+        double d = p.distance(new Point3D());
+        assertEquals(3,d,0);
     }
 
     @Test

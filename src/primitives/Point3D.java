@@ -105,9 +105,9 @@ public class Point3D extends Point2D
     @Override
     public int compareTo(Point3D p)
     {
-       if(getX().getCoordinate() == p.getX().getCoordinate() &&
-               getY().getCoordinate() == p.getY().getCoordinate() &&
-               getY().getCoordinate() == p.getY().getCoordinate())
+        if (getX().compareTo(p.getX()) == 0 &&
+                getY().compareTo(p.getY()) == 0 &&
+                getZ().compareTo(p.getZ()) == 0)
            return 0;
        else return 1;
     }
@@ -134,11 +134,10 @@ public class Point3D extends Point2D
     @Override
     public String toString()
     {
-        return "(" + _x + ", " + _y + ", " + _z + ")";
+        return "(" + _x.toString() + ", " + _y.toString() + ", " + _z.toString() + ")";
     }
 
     // ***************** Operations ******************** //
-
 
     /**
      * Function to add a vector to a point
@@ -146,6 +145,8 @@ public class Point3D extends Point2D
      */
     public void add(Vector v)
     {
+        //  add for each coordinate the corresponding coordinate in the vector
+        //  for example : x_new = _x + v._x
         _x.add(v.getHead().getX());
         _y.add(v.getHead().getY());
         _z.add(v.getHead().getZ());
@@ -157,6 +158,8 @@ public class Point3D extends Point2D
      */
     public void subtract(Vector v)
     {
+        //  subtract for each coordinate the corresponding coordinate in the vector
+        //  for example : x_new = _x - v._x
         _x.subtract(v.getHead().getX());
         _y.subtract(v.getHead().getY());
         _z.subtract(v.getHead().getZ());
@@ -173,6 +176,8 @@ public class Point3D extends Point2D
     {
         //  create a point of subtraction
         Point3D sub = new Point3D(this);
+
+        //  create the relative point and calculate the distance according
         sub.subtract(new Vector(p));
 
 

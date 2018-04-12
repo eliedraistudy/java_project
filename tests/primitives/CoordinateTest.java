@@ -94,10 +94,10 @@ public class CoordinateTest {
      */
     @Test
     public void add() {
-        Coordinate x = new Coordinate(1);
+        Coordinate x = new Coordinate(1.5);
         Coordinate y = new Coordinate(2);
         x.add(y);
-        assertEquals(3, x.getCoordinate(), 0);
+        assertEquals(3.5, x.getCoordinate(), 0);
     }
 
     /**
