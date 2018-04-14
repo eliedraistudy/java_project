@@ -1,6 +1,5 @@
 package geometries;
 
-public class Sphere
-{
+public class Sphere extends RadialGeometry {
 
 }

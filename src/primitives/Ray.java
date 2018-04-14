@@ -68,4 +68,18 @@ public class Ray
      */
     public Point3D getPOO() { return _POO; }
 
+
+    /**
+     * useful to get a specific point on the ray
+     * @param t
+     * @return
+     */
+    public Point3D getPoint(double t){
+        Point3D p = new Point3D(_POO);
+        Vector v = new Vector(_direction);
+        v.scale(t);
+        p.add(v);
+        return p;
+    }
+
 }

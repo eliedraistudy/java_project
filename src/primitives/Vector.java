@@ -80,19 +80,68 @@ public class Vector implements Comparable<Vector>
     // ***************** Administration ******************** //
 
 
-    /**
-     * Override the compare to function in object
-     * Compare between 2 vectors according to their coordinates
-     * @param vector the vector2 to compare
-     * @return -1 if this vector is smaller, 1 if bigger and 0 if equals
-     * See also compareTo in primitives.Point3D
-     */
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * compareTo
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Vector - the vector to compare to the current one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * 1 if the current vector is different than the other one
+     * 0 if they are equals
+     *
+     * -------
+     * MEANING
+     * -------
+     * Implement comparison between vectors
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * Point3D.compareTot
+     *************************************************/
     @Override
     public int compareTo(Vector vector) // 0 if equal 1 if not equal
     {
         return _head.compareTo(vector._head);
     }
 
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * equals
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Object - the vector to compare to the current one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * True if they are equals
+     * False otherwise
+     *
+     * -------
+     * MEANING
+     * -------
+     * Implement comparison between vectors
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * Point3D.compareTot
+     *************************************************/
     @Override
     public boolean equals(Object o){
 
@@ -108,10 +157,31 @@ public class Vector implements Comparable<Vector>
     }
 
 
-    /**
-     * Override of toString
-     * @return the string representation of the vector (3 coordinates)
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * toString
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * The string representation of the vector with 2 floating points for each coordinates
+     * "(x.00, y.00, z.00)"
+     *
+     * -------
+     * MEANING
+     * -------
+     * Got the string representation of the vector
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     @Override
     public String toString()
     {
@@ -121,29 +191,92 @@ public class Vector implements Comparable<Vector>
 
     // ***************** Operations ******************** //
 
-    /**
-     * Function to add a vector to an existing one
-     * @param vector the vector to add
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * add
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Vector - the vector to add to the current one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * add to each coordinate of the current vector, the corresponding coordinate of the vector parameter
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public void add (Vector vector)
     {
         _head.add(vector);
     }
 
-    /**
-     * Function to substract a vector to an existing one
-     * @param vector
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * add
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Vector - the vector to subtract to the current one
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * Function to subtract a vector to an existing one
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public void subtract (Vector vector)
     {
         _head.subtract(vector);
     }
 
-    /**
-     * Function to apply scalar multiplication to a vector
-     * The parameter scaling factor multiplies each coordinate of the vector
-     * @param s multiplies each coordinate of the vector
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * scale
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * double - a real number for multiplication
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * Multiply each coordinate in the vector by the real number given in parameter
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * geometries.FlatGeometry.intersections
+     *************************************************/
     public void scale(double s)
     {
         double xx = _head.getX().getCoordinate()*s,
@@ -153,11 +286,36 @@ public class Vector implements Comparable<Vector>
         _head = new Point3D(xx,yy,zz);
     }
 
-    /**
-     * Apply dotProduct between 2 vectors
-     * @param vector the vector to do the cross product with
-     * @return the resulting vector of the dot product
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * crossProduct
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Vector - the vector to perform cross product with
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * a new vector corresponding to the operation
+     *
+     * -------
+     * MEANING
+     * -------
+     * By given :
+     * our current vector w = (wx, wy, wz)
+     * the parameter vector v = (vx, vy, vz)
+     *
+     * return a new vector :
+     * V = (wy*vz - wz*vy, wz*vx - wx*vz, wx*vy - wy*vx)
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public Vector crossProduct(Vector vector) {
 
         //  coordinate of the current object
@@ -178,10 +336,31 @@ public class Vector implements Comparable<Vector>
         return new Vector(x_component, y_component,z_component);
     }
 
-    /**
-     * Find the length of the vector
-     * @return size of the vector
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * length
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * return the value of the vector size
+     *
+     * -------
+     * MEANING
+     * -------
+     * calculate the vector's length according with its parameters ant the formula :
+     * ret = sqrt(x*x + y*y + z*z)
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public double length()
     {
         double x = _head.getX().getCoordinate();
@@ -192,47 +371,116 @@ public class Vector implements Comparable<Vector>
         return Math.sqrt(x*x+y*y+z*z);
     }
 
-    /**
-     * Normalize the vector to be with length of 1
-     * @throws Exception if null vector
-     * SEE ALSO function normalVector()
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * normalize
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * Normalize the vector to give it a length of 1 by dividing each coordinate with its old length
+     * Check first if the vector is no null vector
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     * Vector.normalVector
+     *************************************************/
     public void normalize() throws Exception
     {
-        if(length() == 0)
-            throw new Exception("Error, null vector");
-
-        this._head = new Point3D(normalVector()._head);
+        //  give to the _head field the values of the corresponding normal vector
+        _head = new Point3D(normalVector()._head);
     }
 
-    /**
-     * Get the vector which correspond to this one but with length of 1
-     * @return unit_vector
-     * @throws Exception if null vector
-     * SEE ALSO function normalize()
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * normalVector
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * A vector with same direction of the current one but with a length of 1
+     *
+     * -------
+     * MEANING
+     * -------
+     * Like in Vector.normalize, return a vector with same direction of the current one but with a length of 1
+     * Throws exception if null vector
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public Vector normalVector() throws Exception
     {
-        if(length() == 0) throw new Exception();
+        if(length() == 0) throw new Exception("Error, null vector");
 
+        //  divide each coordinates value by the current length
         return new Vector(
                 _head._x.getCoordinate()/length(),
                 _head._y.getCoordinate()/length(),
                 _head._z.getCoordinate()/length());
     }
 
-    /**
-     * Apply dot product
-     * @param vector the vector to do the dot product with
-     * @return value of dot product
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * dotProduct
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Vector - the vector to perform with the dot product
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * return the double value of the dot product
+     *
+     * -------
+     * MEANING
+     * -------
+     * By given :
+     * v = (vx, vy, vz)
+     * w = (wx, wy, wz)
+     *
+     * return vx*wx + vy*wy + vz*wz
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public double dotProduct(Vector vector)
     {
-        //  get the coordinate of the vector
+        //  perform multiplication between each corresponding coordinates
+
+        //  X - coordinates
         double x = getHead().getX().getCoordinate()*
                 vector.getHead().getX().getCoordinate();
+
+        //  Y - coordinates
         double y = getHead().getY().getCoordinate()*
                 vector.getHead().getY().getCoordinate();
+
+        //  Z - coordinates
         double z = getHead().getZ().getCoordinate()*
                 vector.getHead().getZ().getCoordinate();
 
@@ -241,16 +489,16 @@ public class Vector implements Comparable<Vector>
 
     /**
      * Check if a vector is null
-     * @return return true if the vector is coordinate (0,0,0)
+     * @return return true if the vector has coordinates (0,0,0)
      */
     public boolean isNull()
     {
-        return compareTo(Null()) == 0;
+        return equals(Null());
     }
 
     /**
      * Static function to get the null vector
      * @return an instance of null vector
      */
-    public static Vector Null() { return new Vector(0,0,0); }
+    public static Vector Null() { return new Vector(); }
 }

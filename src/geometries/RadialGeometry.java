@@ -1,9 +1,14 @@
 package geometries;
 
+import primitives.Point3D;
+import primitives.Ray;
+
+import java.util.List;
+
 /**
  * A class to describe symmetrical objects (with a constant radius)
  */
-public class RadialGeometry
+public class RadialGeometry implements FlatGeometry
 {
     /**
      * Field for radius
@@ -27,7 +32,9 @@ public class RadialGeometry
      * Copy constructor
      * @param rg the value to copy
      */
-    public RadialGeometry(RadialGeometry rg) { _radius = rg._radius; }
+    public RadialGeometry(RadialGeometry rg) {
+        _radius = rg._radius;
+    }
 
     // ***************** Getters / Setters ********************** //
 
@@ -42,4 +49,9 @@ public class RadialGeometry
      * @param radius the value to assign
      */
     public void  setRadius(double radius) { _radius = radius; }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
+    }
 }

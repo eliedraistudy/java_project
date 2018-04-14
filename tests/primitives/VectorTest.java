@@ -103,7 +103,7 @@ public class VectorTest {
         Vector v2 = new Vector(1.1,4.2,3.034);
         Vector v3 = v1.crossProduct(v2);
 
-        assertEquals(v3.compareTo(new Vector(-6.068, -9.102, 14.8)),0,0);
+        assertTrue(v3.equals(new Vector(-6.068, -9.102, 14.8)));
     }
 
     @Test
@@ -124,19 +124,19 @@ public class VectorTest {
         assertEquals(1,v1.length(),0);
     }
 
-    @Test public void normalizeTest() throws Exception
+    @Test public void normalizeTest()
     {
         Vector v1 = new Vector();
-        String s = "";
+        String s = "Error";
         try{
             v1.normalize();
         }
         catch (Exception e) {
-            s = e.getMessage();
+            s = "Reach exception";
         }
 
 
-        assertEquals(s, "Error, null vector");
+        assertEquals(s, "Reach exception");
     }
 
 

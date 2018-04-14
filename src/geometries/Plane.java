@@ -7,7 +7,7 @@ import primitives.Ray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Plane
+public class Plane implements FlatGeometry
 {
     /**
      * Field for the normal vector
@@ -96,6 +96,9 @@ public class Plane
     public void setQ(Point3D d) { _Q = new Point3D(d); }
 
 
+
+
+
     // ***************** Operations ******************** //
 
     /**
@@ -103,65 +106,61 @@ public class Plane
      * @param ray
      * @return list of 3D points for intersections, empty list if no intersection
      */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+
+        //  the return list
+        List<Point3D> list = new ArrayList<>();
+
+        //  Ray : P = P0 + tV
+        //  Plane : N.(P-Q0) = 0
+
+        Point3D P0 = new Point3D(ray.getPOO());
+        Vector V = new Vector(ray.getDirection());
+        Vector N = new Vector(getNormal());
+        Point3D Q0 = new Point3D(getQ());
+
+
+        //  here the equation to solve
+        //  N.(P0 + tV - Q0) = 0
+        //  t = (N.Q0 - N.P0)/ N.V
+
+        //  check first if N, V are orthogonals which means no intersections
+        if (N.dotProduct(V) == 0) return list;
+
+        //  find the value of t
+        double t = (N.dotProduct(new Vector(Q0)) - N.dotProduct(new Vector(P0)))
+                /(N.dotProduct(V));
+
+
+        //  if t is negative, vector behind the camera
+        if(t<0) return list;
+
+        //  use a ray function
+        list.add(ray.getPoint(t));
+
+        return list;
+    }
+
+
     /*
-    public List<Point3D> FindIntersections(Ray ray)
-    {
-        Vector w = new Vector(ray.getDirection());
-        List<Point3D> lp = new ArrayList<Point3D>();
-        if (w.dotProduct(_normal) == 0)
-            return lp;
+    public Vector getPlanarVector(){
+        //  normal vector : (a, b, c)
+        //  new vector : (x, y, z)
+        //  solution of ax + by + cz = 0
 
-        //  solve equation of intersection
-        //  ray : {x = a+Xt, y = b+Yt, z = c+Zt}
-        //  plane : {Ax+By+Cz = D}
-        //  A(a+Xt) + B(b+Yt) + C(c+Zt) = D
-        //  t(AX + BY + CZ) = D - (Aa+Bb+Cc)
-        //  t = [D - (Aa+Bb+Cc)]/(AX + BY + CZ)
+        double a = _normal.getHead().getX().getCoordinate();
+        double b = _normal.getHead().getY().getCoordinate();
+        double c = _normal.getHead().getZ().getCoordinate();
 
-        double a = ray.getPOO().getXValue();
-        double b = ray.getPOO().getYValue();
-        double c = ray.getPOO().getZValue();
-
-        double X = ray.getDirection().getX();
-        double Y = ray.getDirection().getY();
-        double Z = ray.getDirection().getZ();
-
-        double A = _normal.getX();
-        double B = _normal.getY();
-        double C = _normal.getZ();
-        double D = _Q.getXValue()*_normal.getX() +
-                _Q.getYValue()*_normal.getY() +
-                _Q.getZValue()*_normal.getZ();
-
-        double t = (D - (A*a+B*b+C*c))/(A*X+B*Y+C*Z);
-
-        if(t<=0) return lp;
-
-        //  add the point
-        lp.add(new Point3D(a + t*X, b+t*Y, c+t*Z));
-        return lp;
-
-    }*/
-
-    /**
-     * Function to check if a specific point is part of the plane
-     * @param p the point to check
-     * @return true if the point is in the plane, false otherwise
-     */
-    /*
-    public boolean contains(Point3D p)
-    {
-        //  get the d in equation ax + by + cz = d
-        //  (a,b,c) : coordinates of normal vector
-        //  (x,y,z) : coordinates of _q
-        double d = _Q.getXValue()*_normal.getX() +
-                _Q.getYValue()*_normal.getY() +
-                _Q.getZValue()*_normal.getZ();
-
-        //   check the equation for the point p
-        return (p.getXValue()*_normal.getX() +
-                p.getYValue()*_normal.getY() +
-                p.getZValue()*_normal.getZ() == d);
+        //  for a != 0 : x = (-b-c)/a, y = 1, z = 1
+        if (a != 0)
+            return new Vector((-b-c)/a, 1,1);
+        else if(b!=0)
+            return new Vector(1,(-a-c)/b,1);
+        else if(c != 0)
+            return new Vector(1,1,(-a-b)/c);
+        else return new Vector();
     }
     */
 
