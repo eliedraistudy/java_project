@@ -7,92 +7,46 @@ import primitives.Ray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Plane implements FlatGeometry
+public class Plane extends Geometry implements FlatGeometry
 {
-    /**
-     * Field for the normal vector
-     */
-    private Vector _normal;
 
-    /**
-     * Field for the application point
-     */
+    // ***************** Fields ********************** //
+    private Vector _normal;
     private Point3D _Q;
 
     // ***************** Constructors ********************** //
 
-    /**
-     * Default constructor
-     *
-     */
-    public Plane()
-    {
+    public Plane() {
         _normal = new Vector();
         _Q = new Point3D();
     }
 
-    /**
-     * Copy constructor
-     * @param plane
-     */
-    public Plane (Plane plane)
-    {
+
+    public Plane (Plane plane) throws ArithmeticException {
         //assign the normal vector to be unitary
-        try{
-            _normal = new Vector(plane._normal.normalVector());
-        }
-        catch(Exception e) {}
+        _normal = new Vector(plane._normal.normalVector());
         _Q = new Point3D(plane._Q);
     }
 
-    /**
-     * Value constructor
-     * @param normal assign the value to the normal vector
-     * @param q assign the value to the application point
-     */
-    public Plane (Vector normal, Point3D q)
+
+    public Plane (Vector normal, Point3D q) throws Exception
     {
-        //assign the normal vector to be unitary
-        try {
-            _normal = new Vector(normal).normalVector();
-        }
-        catch (Exception e) {}
+        _normal = new Vector(normal).normalVector();
+
+        if(_normal.isNull())
+            throw new Exception("ERROR, can't create a plane with null normal vector");
 
         _Q = new Point3D(q);
     }
 
     // ***************** Getters/Setters ********************** //
 
-    /**
-     * Getter for the normal vector
-     * @return the value of the vector
-     */
     public Vector getNormal() { return _normal; }
-
-    /**
-     * Getter for the application point
-     * @return the value of the application point
-     */
     public Point3D getQ() { return _Q; }
 
-
-    /**
-     * Set the value of the normal vector
-     * @param normal
-     */
-    public void setNormal(Vector normal)
-    {
-        try{
+    public void setNormal(Vector normal) throws ArithmeticException{
             _normal = new Vector(normal.normalVector());
-        }
-        catch (Exception e){}
-
     }
-
-    /**
-     * Set the value of the application point
-     * @param d
-     */
     public void setQ(Point3D d) { _Q = new Point3D(d); }
 
 
@@ -133,7 +87,9 @@ public class Plane implements FlatGeometry
                 /(N.dotProduct(V));
 
         //  if t is negative, vector behind the camera
-        if(t<0) return list;
+        //  don't consider it
+        if(t<0)
+            return list;
 
         //  use a ray function
         list.add(ray.getPoint(t));
@@ -141,27 +97,11 @@ public class Plane implements FlatGeometry
         return list;
     }
 
-
-    /*
-    public Vector getPlanarVector(){
-        //  normal vector : (a, b, c)
-        //  new vector : (x, y, z)
-        //  solution of ax + by + cz = 0
-
-        double a = _normal.getHead().getX().getCoordinate();
-        double b = _normal.getHead().getY().getCoordinate();
-        double c = _normal.getHead().getZ().getCoordinate();
-
-        //  for a != 0 : x = (-b-c)/a, y = 1, z = 1
-        if (a != 0)
-            return new Vector((-b-c)/a, 1,1);
-        else if(b!=0)
-            return new Vector(1,(-a-c)/b,1);
-        else if(c != 0)
-            return new Vector(1,1,(-a-b)/c);
-        else return new Vector();
+    @Override
+    public Vector getNormal(Point3D point) {
+        return getNormal();
     }
-    */
+
 
 
 }

@@ -1,4 +1,4 @@
 package geometries;
 
-public class Cylinder extends RadialGeometry {
+public class Cylinder {
 }

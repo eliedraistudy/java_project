@@ -6,7 +6,7 @@ import primitives.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Triangle implements FlatGeometry {
+public class Triangle extends Geometry implements FlatGeometry {
 
     //**************** FIELDS ****************//
     Point3D _p1;
@@ -60,11 +60,13 @@ public class Triangle implements FlatGeometry {
      * --------
      * Plane.findIntersection
      *************************************************/
-    public Plane getPlane(){
-        Vector v1 = new Vector(_p1, _p2);
-        Vector v2 = new Vector(_p1, _p3);
+    public Plane getPlane() throws Exception{
 
-        Vector n = v1.crossProduct(v2);
+        //  no matter which point in parameter
+        //  all normal will be the same
+        Vector n = getNormal(_p1);
+
+        //  create a plane with the calculated normal and the application point p1
         return new Plane(n, _p1);
     }
 
@@ -103,24 +105,28 @@ public class Triangle implements FlatGeometry {
         //  the list to return, start empty
         List<Point3D> list = new ArrayList<Point3D>();
 
+        Plane p;
         //  get the triangle plane
-        Plane p = getPlane();
+        try{
+            p = getPlane();
 
-        //  if the plane list is empty, no intersection
-        if(p.findIntersections(ray).isEmpty())
-            return list;
+            //  if the plane list is empty, no intersection
+            if(p.findIntersections(ray).isEmpty())
+                return list;
 
-        //  get the point to check if inside the triangle
-        Point3D p_to_check = new Point3D(p.findIntersections(ray).get(0));
+            //  get the point to check if inside the triangle
+            Point3D p_to_check = new Point3D(p.findIntersections(ray).get(0));
 
-        //  check if the point inside the triangle
-        //  if so, add the point to the list
-        if(checkInside(p_to_check))
-            list.add(p_to_check);
+            //  check if the point inside the triangle
+            //  if so, add the point to the list
+            if(checkInside(p_to_check))
+                list.add(p_to_check);
+        }
+        catch (Exception e){
 
+        }
 
         return list;
-
 
     }
 
@@ -198,7 +204,15 @@ public class Triangle implements FlatGeometry {
      * --------
      * Triangle.checkInside
      *************************************************/
-    public boolean same_sign(double a, double b, double c){
+    private boolean same_sign(double a, double b, double c){
         return (a>0 && b>0 && c>0) || (a<0 && b<0 && c<0);
+    }
+
+
+    @Override
+    public Vector getNormal(Point3D point){
+        Vector v1 = new Vector(_p1, _p2);
+        Vector v2 = new Vector(_p1, _p3);
+        return v1.crossProduct(v2).normalVector();
     }
 }

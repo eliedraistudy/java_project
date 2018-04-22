@@ -2,13 +2,14 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
 /**
  * A class to describe symmetrical objects (with a constant radius)
  */
-public class RadialGeometry implements FlatGeometry
+public abstract class RadialGeometry extends Geometry
 {
     /**
      * Field for radius
@@ -50,8 +51,11 @@ public class RadialGeometry implements FlatGeometry
      */
     public void  setRadius(double radius) { _radius = radius; }
 
+
+    // ***************** Abstract functions ********************** //
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        return null;
-    }
+    public abstract List<Point3D> findIntersections(Ray ray);
+
+    @Override
+    public abstract Vector getNormal(Point3D p);
 }
