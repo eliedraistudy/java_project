@@ -397,7 +397,7 @@ public class Vector implements Comparable<Vector>
      * --------
      * Vector.normalVector
      *************************************************/
-    public void normalize() throws Exception
+    public void normalize() throws ArithmeticException
     {
         //  give to the _head field the values of the corresponding normal vector
         _head = new Point3D(normalVector()._head);
@@ -428,9 +428,9 @@ public class Vector implements Comparable<Vector>
      * SEE ALSO
      * --------
      *************************************************/
-    public Vector normalVector() throws Exception
+    public Vector normalVector() throws ArithmeticException
     {
-        if(length() == 0) throw new Exception("Error, null vector");
+        if(length() == 0) throw new ArithmeticException("Error, null vector");
 
         //  divide each coordinates value by the current length
         return new Vector(

@@ -132,7 +132,6 @@ public class Plane implements FlatGeometry
         double t = (N.dotProduct(new Vector(Q0)) - N.dotProduct(new Vector(P0)))
                 /(N.dotProduct(V));
 
-
         //  if t is negative, vector behind the camera
         if(t<0) return list;
 
