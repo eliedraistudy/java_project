@@ -9,34 +9,39 @@ import java.util.List;
 public class Sphere extends RadialGeometry
 {
     private Point3D _center;
+
     // ***************** Constructors ********************** //
     public Sphere(){
         this._radius = 0;
         this._center = new Point3D();
     }
-    public Sphere (Sphere sphere)
-    {
+
+    public Sphere (Sphere sphere) {
         this._radius = sphere._radius;
         this._center = new Point3D(sphere._center);
     }
-    public Sphere(double radius, Point3D center)
-    {
+
+    public Sphere(double radius, Point3D center) {
         this._radius = radius;
         this._center = new Point3D(center);
     }
+
+
     // ***************** Getters/Setters ********************** //
-    public Point3D getCenter()
-    {
+    public Point3D getCenter() {
         return this._center;
     }
-    public void setCenter(Point3D center)
-    {
+    public void setCenter(Point3D center) {
         this._center = new Point3D(center);
     }
+
+
     // ***************** Operations ******************** //
-    public Vector getNormal(Point3D point){}
-    public List<Point3D> FindIntersections(Ray ray)
-    {
+    @Override
+    public Vector getNormal(Point3D point){ return null; }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
         ArrayList<Point3D> intersectionsPoints = new ArrayList<Point3D>();
 
         Vector tempVector;
@@ -81,12 +86,8 @@ public class Sphere extends RadialGeometry
         p2 = new Point3D(tempPoint);
 
         intersectionsPoints.add(p2);
-        return intersectionsPoints
-
-
-
+        return intersectionsPoints;
 
     }
-    private Point3D getPoint(double t, Vector v, Point3D poo){}
 
 }

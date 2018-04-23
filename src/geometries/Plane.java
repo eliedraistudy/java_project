@@ -21,16 +21,13 @@ public class Plane extends Geometry implements FlatGeometry
         _Q = new Point3D();
     }
 
-
     public Plane (Plane plane) throws ArithmeticException {
         //assign the normal vector to be unitary
         _normal = new Vector(plane._normal.normalVector());
         _Q = new Point3D(plane._Q);
     }
 
-
-    public Plane (Vector normal, Point3D q) throws Exception
-    {
+    public Plane (Vector normal, Point3D q) throws Exception {
         _normal = new Vector(normal).normalVector();
 
         if(_normal.isNull())
@@ -49,9 +46,7 @@ public class Plane extends Geometry implements FlatGeometry
     }
     public void setQ(Point3D d) { _Q = new Point3D(d); }
 
-
-
-
+    
 
     // ***************** Operations ******************** //
 
