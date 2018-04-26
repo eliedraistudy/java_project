@@ -148,10 +148,10 @@ public class Vector implements Comparable<Vector>
         double this_x = getHead().getX().getCoordinate();
         double this_y = getHead().getY().getCoordinate();
         double this_z = getHead().getZ().getCoordinate();
-
-        double x = getHead().getX().getCoordinate();
-        double y = getHead().getY().getCoordinate();
-        double z = getHead().getZ().getCoordinate();
+        Vector v = (Vector)o;
+        double x = v.getHead().getX().getCoordinate();
+        double y = v.getHead().getY().getCoordinate();
+        double z = v.getHead().getZ().getCoordinate();
 
         return this_x == x && this_y == y && this_z == z;
     }
@@ -220,6 +220,13 @@ public class Vector implements Comparable<Vector>
     {
         _head.add(vector);
     }
+    public Vector add_return (Vector vector)
+    {
+        Vector tempVector = new Vector(_head);
+        tempVector.add(vector);
+        return tempVector;
+    }
+
 
     /*************************************************
      * --------
@@ -250,6 +257,13 @@ public class Vector implements Comparable<Vector>
     {
         _head.subtract(vector);
     }
+    public Vector subtract_return (Vector vector)
+    {
+        Vector tempVector = new Vector(_head);
+        tempVector.subtract(vector);
+        return tempVector;
+    }
+
 
     /*************************************************
      * --------
@@ -284,6 +298,17 @@ public class Vector implements Comparable<Vector>
                 zz = _head.getZ().getCoordinate()*s;
 
         _head = new Point3D(xx,yy,zz);
+    }
+    public Vector scale_return(double s)
+    {
+        double xx = _head.getX().getCoordinate()*s,
+                yy = _head.getY().getCoordinate()*s,
+                zz = _head.getZ().getCoordinate()*s;
+
+        Vector tempVector = new Vector(xx,yy,zz);
+
+        return tempVector;
+
     }
 
     /*************************************************
@@ -402,6 +427,7 @@ public class Vector implements Comparable<Vector>
         //  give to the _head field the values of the corresponding normal vector
         _head = new Point3D(normalVector()._head);
     }
+
 
     /*************************************************
      * --------

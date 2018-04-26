@@ -47,18 +47,19 @@ public class Sphere extends RadialGeometry
         Vector tempVector;
         Point3D tempPoint;
         Point3D p1,p2;
-        Vector v = new Vector(ray.getDirection());
-        v.normalize();
         Point3D p0 = new Point3D(ray.getPOO());
         Point3D o = new Point3D(this._center);
+        Vector v = new Vector(ray.getDirection());
+        v.normalize();
         double r = this._radius;
 
         tempVector = new Vector(o);
         tempVector.subtract(new Vector(p0));
         Vector L = new Vector(tempVector);
 
-
-        double tm = 0; // need check how to find a surcharge
+        tempVector = new Vector(v);
+        tempVector.dotProduct(L);
+        double tm = tempVector.length();
 
         double d = Math.sqrt(Math.pow(L.length(),2) - Math.pow(tm,2));
 

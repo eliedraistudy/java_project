@@ -125,4 +125,6 @@ public class Point3DTest {
         p.setY(new Coordinate(10.27));
         assertEquals(10.27,p.getY().getCoordinate(),0);
     }
+
+
 }

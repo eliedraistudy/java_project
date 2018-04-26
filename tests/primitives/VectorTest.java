@@ -156,5 +156,36 @@ public class VectorTest {
         assertEquals("", 0, v3.length(), 1e-10);
     }
 
+    @Test
+    public void Test13(){
+        System.out.println("Test13: Vector Add_return test");
+
+        Vector v1 = new Vector(3.5, -5.0, 10.0);
+        Vector v2 = new Vector(2.5, 7, 0.5);
+        Vector v3 = v1.add_return(v2);
+
+        assertTrue(v3.equals(new Vector(6,2,10.5)) == true);
+    }
+    @Test
+    public void Test14(){
+        System.out.println("Test14: Vector subtract_return test");
+
+        Vector v1 = new Vector(3.5, -5.0, 10.0);
+        Vector v2 = new Vector(2.5, 7, 0.5);
+        Vector v3 = v1.subtract_return(v2);
+
+        assertTrue(v3.equals(new Vector(1,-12,9.5)));
+    }
+
+    @Test
+    public void Test15(){
+        System.out.println("Test15: Vector scale_return test");
+
+        Vector v1 = new Vector(3.5, -5.0, 10.0);
+        Vector v2 = v1.scale_return(-2);
+
+        assertTrue(v2.equals(new Vector(-7,10,-20)));
+    }
+
 
 }

@@ -237,6 +237,23 @@ public class Point3D extends Point2D
         _y.add(v.getHead().getY());
         _z.add(v.getHead().getZ());
     }
+    public Point3D add_return(Vector v)
+    {
+        double xx = _x.getCoordinate() + v.getHead()._x.getCoordinate();
+        double yy = _y.getCoordinate() + v.getHead()._y.getCoordinate();
+        double zz = _z.getCoordinate() + v.getHead()._z.getCoordinate();
+
+        return new Point3D(xx,yy,zz);
+    }
+    public Point3D add_return(Point3D p)
+    {
+        double xx = _x.getCoordinate() + p._x.getCoordinate();
+        double yy = _y.getCoordinate() + p._y.getCoordinate();
+        double zz = _z.getCoordinate() + p._z.getCoordinate();
+
+        return new Point3D(xx,yy,zz);
+    }
+
 
     /*************************************************
      * --------
@@ -272,6 +289,22 @@ public class Point3D extends Point2D
         v.scale(-1);
         //  add the invert of v which is the same than subtract v itself
         add(v);
+    }
+    public Point3D subtract_return(Vector v)
+    {
+        double xx = _x.getCoordinate() - v.getHead()._x.getCoordinate();
+        double yy = _y.getCoordinate() - v.getHead()._y.getCoordinate();
+        double zz = _z.getCoordinate() - v.getHead()._z.getCoordinate();
+
+        return new Point3D(xx,yy,zz);
+    }
+    public Point3D subtract_return(Point3D p)
+    {
+        double xx = _x.getCoordinate() - p._x.getCoordinate();
+        double yy = _y.getCoordinate() - p._y.getCoordinate();
+        double zz = _z.getCoordinate() - p._z.getCoordinate();
+
+        return new Point3D(xx,yy,zz);
     }
 
 
