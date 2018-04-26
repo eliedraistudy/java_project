@@ -14,7 +14,7 @@ public abstract class Geometry
     private Color _emission = new Color(1,0,0,1.0);
 
     //******************* Abstract methods *******************//
-    public abstract List<Point3D> findIntersections (Ray ray);
+    public abstract List<Point3D> FindIntersections (Ray ray);
     public abstract Vector getNormal(Point3D point);
 
     //******************* GETTERS/SETTERS *******************//

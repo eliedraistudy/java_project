@@ -54,7 +54,7 @@ public abstract class RadialGeometry extends Geometry
 
     // ***************** Abstract functions ********************** //
     @Override
-    public abstract List<Point3D> findIntersections(Ray ray);
+    public abstract List<Point3D> FindIntersections(Ray ray);
 
     @Override
     public abstract Vector getNormal(Point3D p);

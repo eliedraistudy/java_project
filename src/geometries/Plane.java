@@ -46,7 +46,7 @@ public class Plane extends Geometry implements FlatGeometry
     }
     public void setQ(Point3D d) { _Q = new Point3D(d); }
 
-    
+
 
     // ***************** Operations ******************** //
 
@@ -56,7 +56,7 @@ public class Plane extends Geometry implements FlatGeometry
      * @return list of 3D points for intersections, empty list if no intersection
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<Point3D> FindIntersections(Ray ray) {
 
         //  the return list
         List<Point3D> list = new ArrayList<>();
@@ -68,6 +68,7 @@ public class Plane extends Geometry implements FlatGeometry
         Vector V = new Vector(ray.getDirection());
         Vector N = new Vector(getNormal());
         Point3D Q0 = new Point3D(getQ());
+
 
 
         //  here the equation to solve

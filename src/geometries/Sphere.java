@@ -41,7 +41,7 @@ public class Sphere extends RadialGeometry
     public Vector getNormal(Point3D point){ return null; }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<Point3D> FindIntersections(Ray ray) {
         ArrayList<Point3D> intersectionsPoints = new ArrayList<Point3D>();
 
         Vector tempVector;
