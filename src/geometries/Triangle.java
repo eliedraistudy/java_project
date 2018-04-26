@@ -100,7 +100,7 @@ public class Triangle extends Geometry implements FlatGeometry {
      * Triangle.checkInside
      *************************************************/
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<Point3D> FindIntersections(Ray ray) {
 
         //  the list to return, start empty
         List<Point3D> list = new ArrayList<Point3D>();
@@ -111,11 +111,11 @@ public class Triangle extends Geometry implements FlatGeometry {
             p = getPlane();
 
             //  if the plane list is empty, no intersection
-            if(p.findIntersections(ray).isEmpty())
+            if(p.FindIntersections(ray).isEmpty())
                 return list;
 
             //  get the point to check if inside the triangle
-            Point3D p_to_check = new Point3D(p.findIntersections(ray).get(0));
+            Point3D p_to_check = new Point3D(p.FindIntersections(ray).get(0));
 
             //  check if the point inside the triangle
             //  if so, add the point to the list
@@ -213,6 +213,9 @@ public class Triangle extends Geometry implements FlatGeometry {
     public Vector getNormal(Point3D point){
         Vector v1 = new Vector(_p1, _p2);
         Vector v2 = new Vector(_p1, _p3);
-        return v1.crossProduct(v2).normalVector();
+        Vector n = v1.crossProduct(v2);
+        n.normalize();
+        n.scale(-1);
+        return n;
     }
 }
