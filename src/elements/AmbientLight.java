@@ -15,8 +15,8 @@ public class AmbientLight extends Light {
     public AmbientLight(Map<String, String> attributes){}
 
     // ***************** Getters/Setters ********************** //
-    public Color getColor();
-    public void  setColor(Color color);
-    public double getKa();
+    public Color getColor(){ return _color; }
+    public void  setColor(Color color) { _color = new Color(color.getRGB()); }
+    public double getKa() { return _Ka; }
     public Color getIntensity();
 }
