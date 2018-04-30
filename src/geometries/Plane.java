@@ -59,7 +59,7 @@ public class Plane extends Geometry implements FlatGeometry
     public List<Point3D> FindIntersections(Ray ray) {
 
         //  the return list
-        List<Point3D> list = new ArrayList<>();
+        List<Point3D> list = new ArrayList<Point3D>();
 
         //  Ray : P = P0 + tV
         //  Plane : N.(P-Q0) = 0
