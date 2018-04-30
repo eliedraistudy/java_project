@@ -47,8 +47,7 @@ public class Sphere extends RadialGeometry
         Point3D p1,p2;
         Point3D p0 = new Point3D(ray.getPOO());
         Point3D o = new Point3D(this._center);
-        Vector v = new Vector(ray.getDirection());
-        v.normalize();
+        Vector v = new Vector(ray.getDirection()).normalVector();
         double r = this._radius;
 
         Vector L = new Vector(o.subtract_return(p0));
@@ -65,20 +64,10 @@ public class Sphere extends RadialGeometry
         p1 = new Point3D(v.scale_return(tm-th).getHead());
         p2 = new Point3D(v.scale_return(tm+th).getHead());
 
-        //tempPoint = new Point3D(p0);
-        //tempVector = new Vector(v);
-        //tempVector.scale(t1);
-        //tempPoint.add(tempVector);
-        //p1 = new Point3D(tempPoint);
+
         intersectionsPoints.add(p1);
         if (r == d)
             return intersectionsPoints;
-
-        //tempPoint = new Point3D(p0);
-        //tempVector = new Vector(v);
-        //tempVector.scale(t2);
-        //tempPoint.add(tempVector);
-        //p2 = new Point3D(tempPoint);
 
         intersectionsPoints.add(p2);
         return intersectionsPoints;
