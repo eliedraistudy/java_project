@@ -27,8 +27,13 @@ public class SphereTest {
     @Test
     public void findIntersections()
     {
-        Sphere s = new Sphere(10,new Point3D(7,10,50));
-        List<Point3D> arrayList = s.FindIntersections(new Ray(new Point3D(20,10,30), new Vector(15,-6,-30)));
+        Sphere s = new Sphere(180,new Point3D(200,50,0));
+        List<Point3D> arrayList = s.FindIntersections(
+                new Ray(
+                        new Point3D(0,0,0),
+                        new Vector(100,80,15)
+                )
+        );
 
     }
 }
