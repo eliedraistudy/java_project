@@ -1,6 +1,6 @@
 package scene;
 
-import elements.AmbientLight;
+//import elements.AmbientLight;
 import elements.Camera;
 import geometries.Geometry;
 
@@ -12,7 +12,7 @@ public class Scene{
     //************** FIELDS **************//
     String _sceneName;
     Color _background;
-    AmbientLight _ambientLight;
+    //AmbientLight _ambientLight;
     List<Geometry> _geometries;
     Camera _camera;
     double _screenDistance;

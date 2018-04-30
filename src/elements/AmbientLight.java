@@ -3,6 +3,7 @@ package elements;
 import java.awt.*;
 import java.util.Map;
 
+/*
 public class AmbientLight extends Light {
 
     // ***************** Fields ********************** //
@@ -18,5 +19,6 @@ public class AmbientLight extends Light {
     public Color getColor(){ return _color; }
     public void  setColor(Color color) { _color = new Color(color.getRGB()); }
     public double getKa() { return _Ka; }
-    public Color getIntensity();
+    //public Color getIntensity();
 }
+*/
