@@ -17,7 +17,7 @@ public class Scene{
     Camera _camera;
     double _screenDistance;
 
-    
+
     //************** CONSTRUCTOR(S) **************//
 
     //************** GETTERS/SETTERS **************//
