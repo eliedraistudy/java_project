@@ -22,7 +22,13 @@ public class SphereTest {
     }
 
     @Test
-    public void getNormal() {
+    public void getNormal()
+    {
+        Sphere sphere = new Sphere(10,new Point3D(10,-2,3));
+        Point3D point3D = new Point3D(5,7,-8);
+        Vector vector = new Vector(sphere.getNormal(point3D));
+        assertEquals(0, vector.compareTo(new Vector(5/Math.sqrt(227),-9/Math.sqrt(227),11/Math.sqrt(227))));
+
     }
 
     @Test
