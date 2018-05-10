@@ -32,6 +32,7 @@ public class CameraTest {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
 
+                //  get the ray through the pixel (i,j)
                 Ray ray = camera.constructRayThroughPixel(
                         WIDTH,
                         HEIGHT,
@@ -40,14 +41,16 @@ public class CameraTest {
                         1,
                         3 * WIDTH,
                         3 * HEIGHT);
-                screen[i][j] = ray.getPOO();
+
+                screen[i][j] = new Point3D(ray.getPOO());
                 System.out.print(screen[i][j]);
                 System.out.println(ray.getDirection());
 
-                // Checking z-coordinate assertTrue(Double.compare(screen[i][j].getZ().getCoordinate(), -1.0) == 0);
+                // Checking z-coordinate
+                assertTrue(Double.compare(screen[i][j].getZ().getCoordinate(), -1.0) == 0);
                 // Checking all options
                 double x = screen[i][j].getX().getCoordinate();
-                double y = screen[i][j].getX().getCoordinate();
+                double y = screen[i][j].getY().getCoordinate();
 
                 if (Double.compare(x, 3) == 0 ||
                         Double.compare(x, 0) == 0 ||

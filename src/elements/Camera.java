@@ -65,33 +65,70 @@ public class Camera {
 
     @Override
     public String toString() {
-        return "_P0: " + _P0.toString() +
-                "\n_vUp: " + _vUp.toString() +
-                "\n_vTo: " + _vTo.toString() +
-                "\n_vRight: " + _vRight.toString();
+        return "Vto: " + _vTo + "\n" + "Vup: " + _vUp + "\n" + "Vright:" + _vRight + ".";
     }
 
+
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * construct ray through pixel
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * int - Nx, the # of pixels in width
+     * int - Ny, the # of pixels in height
+     * double - x, the x coordinate of the pixel
+     * double - y, the y coordinate of the pixel
+     * double - screenDist, the distance from the camera to the screen
+     * double - screenWidth, the width size of the screen
+     * double - screenHeight, the height size of the screen
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * The ray from the camera to the pixel on the screen
+     *
+     * -------
+     * MEANING
+     * -------
+     * Allow to get the ray from the camera to a specific point on the screen
+     * 1)Pc = P0 + d.vTo
+     * 2)Py = Pc - ((y - Ny/2)*ry + ry/2)
+     * 3)Px = Pc + ((x - Nx/2)*rx + rx/2)
+     * 4) P = (Px,Pc)
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public Ray constructRayThroughPixel (int Nx,   int Ny,
                                          double x, double y,
                                          double screenDist,
                                          double screenWidth,
                                          double screenHeight){
+
+
+        //  Pc = P0 + d*vTo
         Point3D Pc = new Point3D(_P0);
         Vector v = new Vector(_vTo);
         v.scale(screenDist);
         Pc.add(v);
 
-        double rx = screenWidth/Nx;
-        double ry = screenHeight/Ny;
+        //  ratio screen/#pixels
+        double rx = (int)screenWidth/Nx;
+        double ry = (int)screenHeight/Ny;
 
-        Vector helpRight = new Vector(_vRight);
-        Vector helpUp = new Vector(_vUp);
+        // Px + ((x - Nx/2)*rx + rx/2)
+        double sx = (rx * (x - (double)Nx/2)) + rx/2;
+        Pc.add(_vRight.normalVector().scale_return(sx));
 
-        helpRight.scale((x-Nx/2)*rx+rx/2);
-        helpUp.scale((x-Ny/2)*ry+ry/2);
-        Point3D P = Pc;
-        P.add(helpRight);
-        P.subtract(helpUp);
-        return new Ray(_P0, new Vector(_P0,P).normalVector());
+        // Py = Pc - ((y - Ny/2)*ry + ry/2)
+        double sy = (ry * (y - (double)Ny/2)) + ry/2;
+        Pc.subtract(_vUp.normalVector().scale_return(sy));
+        return new Ray(Pc, new Vector(_P0,Pc).normalVector());
     }
 }

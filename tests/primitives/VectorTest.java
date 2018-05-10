@@ -69,7 +69,7 @@ public class VectorTest {
 
     @Test
     public void Test07(){
-        System.out.println("Test07: Vector Substruct test");
+        System.out.println("Test07: Vector Subtract test");
 
         Vector v1 = new Vector(1.0, 1.0, 1.0);
         Vector v2 = new Vector(-1.0, -1.0, -1.0);

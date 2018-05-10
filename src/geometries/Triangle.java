@@ -123,7 +123,6 @@ public class Triangle extends Geometry implements FlatGeometry {
                 list.add(p_to_check);
         }
         catch (Exception e){
-
         }
 
         return list;

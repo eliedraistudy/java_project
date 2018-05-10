@@ -285,10 +285,8 @@ public class Point3D extends Point2D
      *************************************************/
     public void subtract(Vector v)
     {
-        //  invert the vector v
-        v.scale(-1);
         //  add the invert of v which is the same than subtract v itself
-        add(v);
+        add(v.scale_return(-1));
     }
     public Point3D subtract_return(Vector v)
     {
