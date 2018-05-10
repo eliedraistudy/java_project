@@ -76,19 +76,33 @@ public class Sphere extends RadialGeometry
         double th = Math.sqrt(Math.pow(r,2) - Math.pow(d,2));
 
         //  p1 is the first intersection point
-        p1 = new Point3D(v.scale_return(tm-th).getHead());
-        p2 = new Point3D(v.scale_return(tm+th).getHead());
+        double t1 = tm - th;
+        double t2 = tm + th;
 
+        p1 = null;
+        p2 = null;
 
-        intersectionsPoints.add(p1);
+        if(t1 > 0)
+            p1 = new Point3D(v.scale_return(tm-th).getHead());
+
+        if(t2 >0)
+            p2 = new Point3D(v.scale_return(tm+th).getHead());
+
+        if(p1 != null)
+            intersectionsPoints.add(new Point3D(p1));
+
         //  if just one intersection point
         if (r == d)
             return intersectionsPoints;
 
         //  else add the other one
-        intersectionsPoints.add(p2);
+        if(p2 != null)
+            intersectionsPoints.add(p2);
+
         return intersectionsPoints;
 
     }
+
+
 
 }

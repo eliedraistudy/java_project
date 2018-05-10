@@ -61,8 +61,9 @@ public class SphereTest {
                 new Sphere(1, new Point3D(0.0, 0.0, -3.0));
         Sphere sphere2 =
                 new Sphere(10, new Point3D(0.0, 0.0, -3.0));
+
         // Only the center ray intersect the sphere in two locations
-        List<Point3D> intersectionPointsSphere = new ArrayList<Point3D>();
+        List<Point3D> intersectionPointsSphere1 = new ArrayList<Point3D>();
         // The sphere encapsulates the view plane - all rays intersect with the sphere once
         List<Point3D> intersectionPointsSphere2 = new ArrayList<Point3D>();
         System.out.println("Camera:\n" + camera);
@@ -82,17 +83,19 @@ public class SphereTest {
                         sphere2.FindIntersections(rays[i][j]);
 
                 for (Point3D iPoint : rayIntersectionPoints)
-                    intersectionPointsSphere.add(iPoint);
+                    intersectionPointsSphere1.add(iPoint);
                 for (Point3D iPoint : rayIntersectionPoints2)
                     intersectionPointsSphere2.add(iPoint);
             }
         }
 
-        assertTrue(intersectionPointsSphere.size() == 2);
+
+
+        assertTrue(intersectionPointsSphere1.size() == 2);
         assertTrue(intersectionPointsSphere2.size() == 9);
         System.out.println("Intersection Points:");
 
-        for (Point3D iPoint : intersectionPointsSphere) {
+        for (Point3D iPoint : intersectionPointsSphere1) {
             assertTrue(
                     iPoint.compareTo(new Point3D(0.0, 0.0, -2.0)) == 0 ||
                             iPoint.compareTo(new Point3D(0.0, 0.0, -4.0)) == 0);

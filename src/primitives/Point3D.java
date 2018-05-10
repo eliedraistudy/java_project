@@ -288,6 +288,7 @@ public class Point3D extends Point2D
         //  add the invert of v which is the same than subtract v itself
         add(v.scale_return(-1));
     }
+
     public Point3D subtract_return(Vector v)
     {
         double xx = _x.getCoordinate() - v.getHead()._x.getCoordinate();
@@ -296,6 +297,7 @@ public class Point3D extends Point2D
 
         return new Point3D(xx,yy,zz);
     }
+
     public Point3D subtract_return(Point3D p)
     {
         double xx = _x.getCoordinate() - p._x.getCoordinate();
