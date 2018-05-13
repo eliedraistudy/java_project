@@ -39,8 +39,8 @@ public class CameraTest {
                         j, // the pixel to go through x
                         i, // the pixel in y
                         1,
-                        3 * WIDTH,
-                        3 * HEIGHT);
+                        3*WIDTH,
+                        3*HEIGHT);
 
                 screen[i][j] = new Point3D(ray.getPOO());
                 System.out.print(screen[i][j]);

@@ -101,5 +101,11 @@ public class SphereTest {
                             iPoint.compareTo(new Point3D(0.0, 0.0, -4.0)) == 0);
             System.out.println(iPoint);
         }
+
+        System.out.println("\n------\n");
+
+        for (Point3D iPoint : intersectionPointsSphere2){
+            System.out.println(iPoint);
+        }
     }
 }

@@ -46,18 +46,8 @@ public class Scene{
         this._camera = new Camera(scene._camera);
         this._ambientLight = new AmbientLight(scene._ambientLight);
         this._background = new Color(scene._background.getRGB());
-        this._geometries = new ArrayList<Geometry>();
-        this._lights= new ArrayList<LightSource>();
-
-        for (Geometry var : scene._geometries)
-        {
-            this._geometries.add(var); // we need to check if need to do new.
-        }
-
-        for (LightSource var : scene._lights)
-        {
-            this._lights.add(var);  // we need to check if need to do new.
-        }
+        this._geometries = new ArrayList<Geometry>(scene._geometries);
+        this._lights= new ArrayList<LightSource>(scene._lights);
 
 
     }

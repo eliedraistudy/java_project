@@ -114,7 +114,7 @@ public class Camera {
 
         //  Pc = P0 + d*vTo
         Point3D Pc = new Point3D(_P0);
-        Vector v = new Vector(_vTo);
+        Vector v = new Vector(_vTo).normalVector();
         v.scale(screenDist);
         Pc.add(v);
 
@@ -129,6 +129,8 @@ public class Camera {
         // Py = Pc - ((y - Ny/2)*ry + ry/2)
         double sy = (ry * (y - (double)Ny/2)) + ry/2;
         Pc.subtract(_vUp.normalVector().scale_return(sy));
+
+
         return new Ray(Pc, new Vector(_P0,Pc).normalVector());
     }
 }
