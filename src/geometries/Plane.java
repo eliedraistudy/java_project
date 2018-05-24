@@ -50,11 +50,37 @@ public class Plane extends Geometry implements FlatGeometry
 
     // ***************** Operations ******************** //
 
-    /**
-     * Find intersections between a ray and the plane
-     * @param ray
-     * @return list of 3D points for intersections, empty list if no intersection
-     */
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * FindIntersections
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Ray - the ray which intersect with the plane
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * A list which contains the intersections between the ray and the plane
+     *
+     * -------
+     * MEANING
+     * -------
+     * By given:
+     * Ray: P = P0 + tV
+     * Plane: N.(P-Q0) = 0
+     *
+     * solve:
+     * t = (N.Q0 - N.P0)/ N.V
+     * which give the point
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     @Override
     public List<Point3D> FindIntersections(Ray ray) {
 

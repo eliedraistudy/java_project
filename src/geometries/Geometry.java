@@ -1,7 +1,7 @@
 package geometries;
 
 
-import javafx.scene.paint.Color;
+import java.awt.Color;
 import primitives.*;
 import java.util.List;
 
@@ -11,7 +11,10 @@ public abstract class Geometry
     //******************* FIELDS *******************//
     private Material _material = new Material();
     private double _nShininess = 1;
-    private Color _emission = new Color(1,0,0,1.0);
+    private Color _emission = new Color(1,0,0);
+
+
+
 
     //******************* Abstract methods *******************//
     public abstract List<Point3D> FindIntersections (Ray ray);

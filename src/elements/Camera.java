@@ -6,7 +6,7 @@ public class Camera {
 
     // ***************** Fields ********************** //
 
-    //Eye point of the camer
+    //Eye point of the camera
     private Point3D _P0;
     private Vector _vUp;
     private Vector _vTo;
@@ -15,7 +15,12 @@ public class Camera {
     private Vector _vRight;
 
     // ***************** Constructors ********************** //
-    public Camera(){ _vRight = _vUp.crossProduct(_vTo); }
+    public Camera(){
+        _P0 = new Point3D(0,0,0);
+        _vUp = new Vector(0.0, 1.0, 0.0);
+        _vTo = new Vector(0.0, 0.0, -1.0);
+        _vRight = _vUp.crossProduct(_vTo);
+    }
 
     public Camera(Camera c){
         _P0 = new Point3D(c._P0);

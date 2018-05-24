@@ -32,7 +32,7 @@ public class Scene{
     {
         this._geometries = new ArrayList<Geometry>();
         this._lights= new ArrayList<LightSource>();
-        this._background = new Color(Color.white.getRGB());// Check if is true to do it.
+        this._background = new Color(Color.BLACK.getRGB());// Check if is true to do it.
         this._ambientLight = new AmbientLight();
         this._camera = new Camera();
         this._sceneName = "scene";
@@ -51,7 +51,7 @@ public class Scene{
 
 
     }
-    public Scene(AmbientLight aLight, Color background,Camera camera, double screenDistance)
+    public Scene(AmbientLight aLight, Color background, Camera camera, double screenDistance)
     {
         this._ambientLight = new AmbientLight(aLight);
         this._background = new Color(background.getRGB());
@@ -64,28 +64,54 @@ public class Scene{
 
     //************** GETTERS/SETTERS **************//
     public Color getBackground(){return this._background;}
+
     public AmbientLight getAmbientLight(){return this._ambientLight;}
+
     public Camera getCamera(){return this._camera;}
+
     public String getSceneName(){return this._sceneName;}
+
     public double getScreenDistance(){return this._screenDistance;}
-    public void setBackground(Color _background){this._background = _background;} // we need to do new for color, but i hace problem with constructor.
-    public void setAmbientLight(AmbientLight ambientLight){this._ambientLight = new AmbientLight(ambientLight);}
-    public void setCamera(Camera camera){this._camera = new Camera(camera);}
-    public void setSceneName(String sceneNAme){this._sceneName = new String(sceneNAme);}
-    public void setScreenDistance(double screenDistance) {this._screenDistance = screenDistance;}
+
+    public void setBackground(Color _background){
+
+        this._background = new Color(_background.getRGB());
+    }
+    public void setAmbientLight(AmbientLight ambientLight){
+        this._ambientLight = new AmbientLight(ambientLight);
+    }
+
+    public void setCamera(Camera camera){
+
+        this._camera = new Camera(camera);
+    }
+
+    public void setSceneName(String sceneNAme){
+
+        this._sceneName = new String(sceneNAme);
+    }
+
+    public void setScreenDistance(double screenDistance){
+        this._screenDistance = screenDistance;
+    }
 
     //************** METHODS **************//
     public void addGeometry(Geometry geometry)
     {
+
         this._geometries.add(geometry); // Check if need new
     }
-    public Iterator<Geometry> getGeometriesIterator(){return this._geometries.iterator();} //Check if need new
-    public void addLight(LightSource light)
-    {
+    public Iterator<Geometry> getGeometriesIterator() {
+
+        return this._geometries.iterator();
+    } //Check if need new
+
+    public void addLight(LightSource light) {
+
         this._lights.add(light);
     }
-    public Iterator<LightSource> getLightsIterator()
-    {
+
+    public Iterator<LightSource> getLightsIterator() {
         return this._lights.iterator();
     }
 }

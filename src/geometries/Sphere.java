@@ -37,12 +37,44 @@ public class Sphere extends RadialGeometry
 
 
     // ***************** Operations ******************** //
+
     @Override
-    public Vector getNormal(Point3D point)
-    {
+    public Vector getNormal(Point3D point) {
         return new Vector(point,this._center).normalVector();
     }
 
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * FindIntersections
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * Ray - the ray which intersect with the sphere
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * A list which contains the intersections between the ray and the sphere
+     *
+     * -------
+     * MEANING
+     * -------
+     * By given:
+     * L = sphere.center - p0
+     * tm = ray.direction DOT L
+     *
+     * solve:
+     * t = (N.Q0 - N.P0)/ N.V
+     * which give the point
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     @Override
     public List<Point3D> FindIntersections(Ray ray) {
         ArrayList<Point3D> intersectionsPoints = new ArrayList<Point3D>();
