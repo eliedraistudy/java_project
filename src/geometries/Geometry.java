@@ -27,7 +27,7 @@ public abstract class Geometry
 
     public void setShininess(double n) { _nShininess = n; }
     public void setMaterial(Material m) { _material = m; }
-    public void setEmmission(Color e) { _emission = e; }
+    public void setEmission(Color e) { _emission = e; }
 
     public void setKs(double ks) { _material.setKs(ks); }
     public void setKd(double kd) { _material.setKd(kd); }

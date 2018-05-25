@@ -12,35 +12,37 @@ import java.awt.*;
 public class LightingTest
 {
     @Test
-    public void emmissionTest() {
+    public void emissionTest() {
 
 
         Scene scene = new Scene();
-        scene.setAmbientLight(new AmbientLight(Color.BLACK));
-        scene.setScreenDistance(50);
+        scene.setScreenDistance(100);
 
-        Sphere sphere = new Sphere(100, new Point3D(0.0, 0.0, -50));
-        Triangle triangle1 = new Triangle(new Point3D(150, 0, -50),
-                new Point3D(0, 150, -50),
-                new Point3D(150, 150, -50));
+        Sphere sphere = new Sphere(50, new Point3D(0.0, 0.0, -100));
+        Triangle triangle1 = new Triangle(
+                new Point3D(150, 0, -100),
+                new Point3D(0, 150, -100),
+                new Point3D(150, 150, -100));
 
-        Triangle triangle2 = new Triangle(new Point3D(150, 0, -50),
-                new Point3D(0, -150, -50),
-                new Point3D(150, -150, -50));
+        Triangle triangle2 = new Triangle(new Point3D(150, 0, -100),
+                new Point3D(0, -150, -100),
+                new Point3D(150, -150, -100));
 
-        Triangle triangle3 = new Triangle(new Point3D(-150, 0, -50),
-                new Point3D(0, 150, -50),
-                new Point3D(-150, 150, -50));
+        Triangle triangle3 = new Triangle(
+                new Point3D(-150, 0, -100),
+                new Point3D(0, 150, -100),
+                new Point3D(-150, 150, -100));
 
-        Triangle triangle4 = new Triangle(new Point3D(-150, 0, -50),
-                new Point3D(0, -150, -50),
-                new Point3D(-150, -150, -50));
+        Triangle triangle4 = new Triangle(
+                new Point3D(-150, 0, -100),
+                new Point3D(0, -150, -100),
+                new Point3D(-150, -150, -100));
 
-        sphere.setEmmission(new Color(255, 54, 37));
-        triangle1.setEmmission(Color.BLUE);
-        triangle2.setEmmission(Color.YELLOW);
-        triangle3.setEmmission(Color.GREEN);
-        triangle4.setEmmission(Color.PINK);
+        sphere.setEmission(new Color(255, 54, 37));
+        triangle1.setEmission(Color.BLUE);
+        triangle2.setEmission(Color.BLUE);
+        triangle3.setEmission(Color.BLUE);
+        triangle4.setEmission(Color.BLUE);
 
         scene.addGeometry(sphere);
         scene.addGeometry(triangle1);
@@ -50,14 +52,16 @@ public class LightingTest
 
         ImageWriter imageWriter =
                 new ImageWriter(
-                        "Emmission test",
-                        500, 500,
-                        500, 500);
+                        "Emission test2 - blue",
+                        501, 501,
+                        501, 501);
 
         Render render = new Render(imageWriter, scene);
 
+        scene.setBackground(Color.BLACK);
+        scene.setAmbientLight(new AmbientLight(Color.LIGHT_GRAY, 1.0));
         render.renderImage();
-        render.printGrid(50);
+        render.printGrid(50, Color.WHITE);
         render.writeToImage("/results/RenderResults/");
     }
 }

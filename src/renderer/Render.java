@@ -12,6 +12,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 import scene.Scene;
+
+
 public class Render
 {
     private Scene _scene;
@@ -76,17 +78,15 @@ public class Render
                 if(noIntersections(hm))
                     _imageWriter.writePixel(j,i,_scene.getBackground());
                 else{
-                    //  get the closest point
+                    //  get the closest geometry point
                     Map<Geometry, Point3D> m = getClosestPoint(ray, hm);
                     Geometry g = m.entrySet().iterator().next().getKey();
-                    Point3D p = m.entrySet().iterator().next().getValue();
 
                     //  color the corresponding pixel
                     _imageWriter.writePixel(
                             j,i,
-                            addColors(
-                                    g.getEmission(),
-                                    _scene.getAmbientLight().getIntensity()));
+                            calcColor(g)
+                    );
                 }
                 
 
@@ -137,31 +137,94 @@ public class Render
      * SEE ALSO
      * --------
      *************************************************/
-    public void printGrid(int interval){
+    public void printGrid(int interval, Color c){
         for (int i = 0; i < _imageWriter.getHeight(); i++) {
             for (int j = 0; j < _imageWriter.getWidth(); j++) {
 
-                if(i%50 == 0 || j%50 == 0)
-                    _imageWriter.writePixel(j,i,Color.BLACK);
+                if(i%interval == 0 || j%interval == 0)
+                    _imageWriter.writePixel(j,i,c);
             }
         }
     }
 
 
 
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * writeToImage
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void function
+     *
+     * -------
+     * MEANING
+     * -------
+     * write the values onto the file, call the ImageWriter write to image method
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public void writeToImage(){
         _imageWriter.writeToimage();
     }
 
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * writeToImage
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * String - the string name of the path where to write
+     *
+     * -------
+     * MEANING
+     * -------
+     * same as above but also get in parameter the path to the file where to write the image
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public void writeToImage(String file){
         _imageWriter.writeToimage(file);
     }
 
 
 
-    private Color calcColor(Geometry geometry, Point3D point, Ray ray){
+    private Color calcColor(Geometry g){
         return
-                addColors(geometry.getEmission(), _scene.getAmbientLight().getColor());
+                subColors(_scene.getAmbientLight().getIntensity(new Point3D()),g.getEmission() );
+    }
+
+    private Color calcColor(Geometry geometry, Point3D point, Ray ray){
+
+        Color AmbientColor =
+                subColors(
+                        _scene.getAmbientLight().getIntensity(point),
+                        geometry.getEmission()
+                );
+
+
+
+        return
+                addColors(geometry.getEmission(), _scene.getAmbientLight().getIntensity(point));
     }
 
     private Color calcColor(Geometry geometry, Point3D point, Ray inRay, int level){
@@ -180,6 +243,14 @@ public class Render
 
     private boolean occluded(LightSource light, Point3D point, Geometry geometry){
         return true;
+    }
+
+    private boolean occluded(Vector l, Point3D point, Geometry geometry) {
+
+        Vector lightDirection = l.scale_return(-1); // from point to light source
+        Ray lightRay = new Ray(point, lightDirection);
+        Map<Geometry, List<Point3D>> intersectionPoints = getSceneRayIntersections(lightRay);
+        return !intersectionPoints.isEmpty();
     }
 
 
@@ -299,24 +370,26 @@ public class Render
     }
 
 
-    /**
-     * Adding between 2 colors
-     * @param a
-     * @param b
-     * @return
-     */
-    private Color addColors(Color c0, Color c1){
-        double totalAlpha = c0.getAlpha() + c1.getAlpha();
-        double weight0 = c0.getAlpha() / totalAlpha;
-        double weight1 = c1.getAlpha() / totalAlpha;
+    private Color subColors(Color light, Color object){
+        int r = 255 - object.getRed();
+        int g = 255 - object.getGreen();
+        int b = 255 - object.getBlue();
 
-        double r = weight0 * c0.getRed() + weight1 * c1.getRed();
-        double g = weight0 * c0.getGreen() + weight1 * c1.getGreen();
-        double b = weight0 * c0.getBlue() + weight1 * c1.getBlue();
-        double a = Math.max(c0.getAlpha(), c1.getAlpha());
+        int r_ret = light.getRed() - r;
+        int g_ret = light.getGreen() - g;
+        int b_ret = light.getBlue() - b;
 
-        return new Color((int) r, (int) g, (int) b, (int) a);
+        if(r_ret<=0) r_ret = 0;
+        if(g_ret<=0) g_ret = 0;
+        if(b_ret<=0) b_ret = 0;
 
-        //return
+        return new Color(r_ret, g_ret, b_ret);
+    }
+
+    private Color addColors(Color a, Color b){
+        return new Color(
+                (a.getRed() + b.getRed())%256,
+                (a.getGreen() + b.getGreen())%256,
+                (a.getBlue() + b.getBlue())%256);
     }
 }

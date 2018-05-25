@@ -155,13 +155,14 @@ public class ImageWriterTest {
         }
     }
 
+    /*
     @Test
     public void WriteStar(){
         ImageWriter imageWriter =
                 new ImageWriter("triangle flag", 500, 500, 1, 1);
         CreateStar(imageWriter,500,0,0,Color.BLUE);
         imageWriter.writeToimage("/results/Flags/");
-    }
+    }*/
 
 
     private void CreateStar(ImageWriter image,
@@ -185,16 +186,7 @@ public class ImageWriterTest {
         }
 
 
-        i_start-=2;
-        for(int i = square_size; i>0; i--, i_start--){
-            for(int j = 0; j<=square_size; j++){
-                if(i>=((double)square_size)/3) {
-                    starting_j = j_start + middle - (square_size - i/ 2);
-                    ending_j = j_start + middle + (square_size - i / 2);
-                    ColorLine(image, i_start, starting_j, ending_j, c);
-                }
-            }
-        }
+
     }
 
 

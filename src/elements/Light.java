@@ -1,5 +1,7 @@
 package elements;
 
+import primitives.Point3D;
+
 import java.awt.*;
 
 public abstract class Light {
@@ -13,5 +15,5 @@ public abstract class Light {
     public Light(Light l) { _color = new Color(l._color.getRGB());}
 
     // ***************** Getters/Setters ********************** //
-    public abstract Color getIntensity();
+    public abstract Color getIntensity(Point3D p);
 }
