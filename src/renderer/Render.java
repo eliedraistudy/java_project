@@ -213,22 +213,95 @@ public class Render
                 subColors(_scene.getAmbientLight().getIntensity(new Point3D()),g.getEmission() );
     }
 
-    private Color calcColor(Geometry geometry, Point3D point, Ray ray){
 
-        Color AmbientColor =
-                subColors(
-                        _scene.getAmbientLight().getIntensity(point),
-                        geometry.getEmission()
-                );
+    private Color calcColor(Geometry geometry, Point3D point, Ray ray) {
 
-
-
-        return
-                addColors(geometry.getEmission(), _scene.getAmbientLight().getIntensity(point));
+        return calcColor(geometry, point, ray, 0);
     }
 
     private Color calcColor(Geometry geometry, Point3D point, Ray inRay, int level){
-        return null;
+        if (level == RECURSION_LEVEL){
+            return new Color(0, 0, 0);
+        }
+
+        Color ambientLight = _scene.getAmbientLight().getIntensity(new Point3D());
+        Color emissionLight = geometry.getEmission();
+
+        Color inherentColors = addColors(ambientLight, emissionLight);
+
+        Iterator<LightSource> lights = _scene.getLightsIterator();
+
+        Color lightReflected = new Color(0, 0, 0);
+
+        while (lights.hasNext()){
+
+            LightSource light = lights.next();
+
+            if (!occluded(light, point, geometry)){
+
+                Color lightIntensity = light.getIntensity(point);
+
+
+                Color lightDiffuse = calcDiffusiveComp(geometry.getMaterial().getKd(),
+                        geometry.getNormal(point),
+                        light.getL(point),
+                        lightIntensity);
+
+
+                Color lightSpecular = calcSpecularComp(geometry.getMaterial().getKs(),
+                        new Vector(point, _scene.getCamera().get_P0()),
+                        geometry.getNormal(point),
+                        light.getL(point),
+                        geometry.getShininess(),
+                        lightIntensity);
+
+                lightReflected = addColors(lightDiffuse, lightSpecular);
+            }
+        }
+
+        Color I0 = addColors(inherentColors, lightReflected);
+
+
+        //**// Recursive calls
+
+        // Recursive call for a reflected ray
+        Ray reflectedRay = constructReflectedRay(geometry.getNormal(point), point, inRay);
+        Entry<Geometry, Point3D> reflectedEntry = findClosestIntersection(reflectedRay);
+        Color reflected = new Color(0, 0, 0);
+        if (reflectedEntry != null){
+            reflected = calcColor(reflectedEntry.getKey(), reflectedEntry.getValue(), reflectedRay, level + 1);
+            double kr = geometry.getMaterial().getKr();
+            reflected = new Color (
+                    (int)(reflected.getRed() * kr),
+                    (int)(reflected.getGreen() * kr),
+                    (int)(reflected.getBlue() * kr)
+            );
+        }
+
+        // Recursive call for a refracted ray
+        Ray refractedRay = constructRefractedRay(geometry, point, inRay);
+        Entry<Geometry, Point3D> refractedEntry =
+                findClosestIntersection(refractedRay);
+        Color refracted = new Color(0, 0, 0);
+        if (refractedEntry != null){
+            refracted = calcColor(refractedEntry.getKey(), refractedEntry.getValue(), refractedRay, level + 1);
+            double kt = geometry.getMaterial().getKt();
+            refracted =
+                    new Color (
+                            (int)(refracted.getRed() * kt),
+                            (int)(refracted.getGreen() * kt),
+                            (int)(refracted.getBlue() * kt)
+                    );
+        }
+
+
+        //**// End of recursive calls
+
+        Color envColors = addColors(reflected, refracted);
+
+        Color finalColor = addColors(envColors, I0);
+
+        return finalColor;
     }
 
 
@@ -256,12 +329,31 @@ public class Render
 
     private Color calcSpecularComp(
             double ks,
-            Vector v,
-            Vector normal,
-            Vector l,
+            Vector vector,
+            Vector N,
+            Vector D,
             double shininess,
             Color lightIntensity){
-        return null;
+        vector.normalize();
+        N.normalize();
+        D.normalize();
+        double k = 0;
+
+        double Dtemp = D.dotProduct(N);
+        N.scale(-2*Dtemp);
+        D.add(N);
+
+        Vector R = new Vector(D);
+
+        if(vector.dotProduct(R)>0){
+            k = ks*Math.pow(vector.dotProduct(R),shininess);
+        }
+
+        Color IO = new Color((int)(lightIntensity.getRed() * k),
+                (int)(lightIntensity.getGreen() * k),
+                (int)(lightIntensity.getBlue()   * k));
+
+        return IO;
     }
 
 
@@ -270,7 +362,17 @@ public class Render
             Vector normal,
             Vector l,
             Color lightIntensity){
-        return null;
+        normal.normalize();
+        l.normalize();
+        double dot = normal.dotProduct(l);
+
+        double temp = Math.abs(kd*dot);
+
+        Color IO = new Color((int)(lightIntensity.getRed() * temp),
+                (int)(lightIntensity.getGreen() * temp),
+                (int)(lightIntensity.getBlue() * temp));
+
+        return IO;
 
     }
 
@@ -318,30 +420,23 @@ public class Render
             Ray ray,
             Map<Geometry, List<Point3D>> intersectionPoints) {
 
-        Point3D p;
-        Point3D help;
-        Geometry g;
+        Map<Geometry, Point3D> geometriesClosestPoint = new HashMap<>();
+        double max = 999999999;
+        Point3D p0 = _scene.getCamera().get_P0();
+        double distance;
 
-        //  get the first entry
-        Entry<Geometry, List<Point3D>> entry =
-                intersectionPoints.entrySet().iterator().next();
-
-        g = entry.getKey();
-        p = findClosestIntersection(ray, entry.getValue());
-
-        for (Map.Entry<Geometry, List<Point3D>> e : intersectionPoints.entrySet()) {
-            help = findClosestIntersection(ray, e.getValue());
-            if (ray.getPOO().distance(help) <= ray.getPOO().distance(p)) {
-                g = e.getKey();
-                p = help;
+        for (Entry<Geometry, List<Point3D>> intersectionsIt : intersectionPoints.entrySet()) {
+            for (Point3D p : intersectionsIt.getValue()) {
+                distance = p0.distance(p);
+                while (max > distance) {
+                    geometriesClosestPoint.clear();
+                    geometriesClosestPoint.put(intersectionsIt.getKey(), p);
+                    max = distance;
+                }
             }
-
-
         }
+        return geometriesClosestPoint;
 
-        Map m = new HashMap<>();
-        m.put(g, p);
-        return m;
     }
 
 
@@ -352,21 +447,16 @@ public class Render
      * @return
      */
     private Map<Geometry, List<Point3D>> getSceneRayIntersections(Ray ray){
-        Map<Geometry, List<Point3D>> hm = new HashMap<>();
+        Iterator<Geometry> geometries = _scene.getGeometriesIterator();
+        Map<Geometry, List<Point3D>> geometryIntersections = new HashMap<>();
 
-        Iterator it = _scene.getGeometriesIterator();
-
-        //  pass through all the geometries
-        //  construct the intersections for each of them
-        while(it.hasNext()){
-            Geometry g = (Geometry)it.next();
-            List<Point3D> intersections = g.FindIntersections(ray);
-            //  only gives geometries which have intersections
-            if(!intersections.isEmpty())
-                hm.put(g,intersections);
+        while(geometries.hasNext()) {
+            Geometry geometry = geometries.next();
+            List<Point3D> geometryIntersectionPoints = geometry.FindIntersections(ray);
+            if (!geometryIntersectionPoints.isEmpty())
+                geometryIntersections.put(geometry, geometryIntersectionPoints);
         }
-
-        return hm;
+        return geometryIntersections;
     }
 
 
@@ -387,9 +477,16 @@ public class Render
     }
 
     private Color addColors(Color a, Color b){
-        return new Color(
-                (a.getRed() + b.getRed())%256,
-                (a.getGreen() + b.getGreen())%256,
-                (a.getBlue() + b.getBlue())%256);
+        int R = a.getRed() + b.getRed();
+        if(R>255)
+            R = 255;
+        int G = a.getGreen() + b.getGreen();
+        if(G>255)
+            G = 255;
+        int B = a.getBlue() + b.getBlue();
+        if(B>255)
+            B = 255;
+
+        return new Color(R,G,B);
     }
 }

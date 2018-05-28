@@ -82,4 +82,12 @@ public class Ray
         return p;
     }
 
+    public Point3D getRayPointByT(Point3D e, Vector d, double t){
+        Vector v = new Vector(d);
+        Point3D result = new Point3D(e);
+        v.scale(t);
+        result.add(v);
+        return result;
+    }
+
 }
