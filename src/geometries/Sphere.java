@@ -175,6 +175,6 @@ public class Sphere extends RadialGeometry implements Comparable<Sphere> {
     public int compareTo(Sphere o) {
         int n=0;
         if(o._radius != _radius) n = 1;
-        return o._center.compareTo(_center) +n;
+        return o._center.compareTo(_center) + n;
     }
 }

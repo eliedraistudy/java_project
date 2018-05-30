@@ -225,10 +225,15 @@ public class Render
     }
 
 
-
+    /**
+     * Calculate the color of the object according to the ambient light
+     * @param g
+     * @return
+     */
     private Color calcColor(Geometry g){
-        return
-                subColors(_scene.getAmbientLight().getIntensity(new Point3D()),g.getEmission() );
+        Color light = _scene.getAmbientLight().getIntensity(new Point3D());
+        Color object = g.getEmission();
+        return subColors(light,object);
     }
 
 

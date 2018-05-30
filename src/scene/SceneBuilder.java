@@ -27,7 +27,7 @@ public class SceneBuilder {
 
     //**************** CONSTRUCTOR *****************//
 
-    /*
+/*
     public SceneBuilder(String sceneFileName) {
         File sceneFile = new File(SCENE_FILE_PATH + sceneFileName);
         loadSceneFromFile(sceneFile);
@@ -84,9 +84,7 @@ public class SceneBuilder {
             _scene.addGeometry(triangle);
         }
 
-    }
-
-    */
+    }*/
 
 
     //**************** GET/SET *****************//

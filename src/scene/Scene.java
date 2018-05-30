@@ -25,8 +25,6 @@ public class Scene{
 
 
 
-
-
     //************** CONSTRUCTOR(S) **************//
     public Scene()
     {
@@ -96,21 +94,41 @@ public class Scene{
     }
 
     //************** METHODS **************//
+
+
+    /**
+     * Add a new geometry to the current list of geometry
+     * @param geometry
+     */
     public void addGeometry(Geometry geometry)
     {
-
         this._geometries.add(geometry); // Check if need new
     }
+
+    /**
+     * Get an iterator over all the geometries
+     * @return
+     */
     public Iterator<Geometry> getGeometriesIterator() {
 
         return this._geometries.iterator();
     } //Check if need new
 
+
+    /**
+     * Add an other Light source to the current scene
+     * @param light
+     */
     public void addLight(LightSource light) {
 
         this._lights.add(light);
     }
 
+
+    /**
+     * Get an iterator on the lightsource list
+     * @return
+     */
     public Iterator<LightSource> getLightsIterator() {
         return this._lights.iterator();
     }
