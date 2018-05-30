@@ -141,9 +141,26 @@ public class Render
     public void printGrid(int interval, Color c){
         for (int i = 0; i < _imageWriter.getHeight(); i++) {
             for (int j = 0; j < _imageWriter.getWidth(); j++) {
-
                 if(i%interval == 0 || j%interval == 0)
                     _imageWriter.writePixel(j,i,c);
+            }
+        }
+    }
+
+    public void printGrid(int interval){
+        for (int i = 0; i < _imageWriter.getHeight(); i++) {
+            for (int j = 0; j < _imageWriter.getWidth(); j++) {
+                if(i%interval == 0 || j%interval == 0)
+                    _imageWriter.writePixel(j,i,Color.white);
+            }
+        }
+    }
+
+    public void printGrid(){
+        for (int i = 0; i < _imageWriter.getHeight(); i++) {
+            for (int j = 0; j < _imageWriter.getWidth(); j++) {
+                if(i%50 == 0 || j%50 == 0)
+                    _imageWriter.writePixel(j,i,Color.white);
             }
         }
     }
@@ -203,8 +220,8 @@ public class Render
      * SEE ALSO
      * --------
      *************************************************/
-    public void writeToImage(String file){
-        _imageWriter.writeToimage(file);
+    public void writeToImage(String file_path){
+        _imageWriter.writeToimage(file_path);
     }
 
 
