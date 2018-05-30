@@ -1,6 +1,7 @@
 package renderer;
 
 
+
 import java.awt.Color;
 import java.util.*;
 import java.util.Map.Entry;
@@ -88,7 +89,7 @@ public class Render
                             calcColor(g)
                     );
                 }
-                
+
 
             }
 
@@ -304,6 +305,72 @@ public class Render
         return finalColor;
     }
 
+    /************************************************
+     * FUNCTION
+     *  findClosesntIntersection();
+     *
+     * PARAMETERS
+     *  Ray - a camera ray.
+     *
+     * RETURN VALUE
+     *  @return Entry/<Geometry,Point3D> - an Entry iterator to a Map
+     *  that associates the closest intersection point of a geometry to itself.
+     *
+     * MEANING
+     *  Find the closest point of each geometry in the scene to the screen.
+     *
+     * See Also
+     *  The function renderImage() is calling in order to get the points
+     *  it need to color
+     *
+     **************************************************/
+    private Entry<Geometry, Point3D> findClosestIntersection(Ray ray){
+
+        Map<Geometry,List<Point3D>> intersectionPoints = getSceneRayIntersections(ray);
+
+        if(intersectionPoints.size() == 0)
+            return null;
+
+        Map<Geometry,Point3D> closestPoint = getClosestPoint(intersectionPoints);
+        Entry<Geometry,Point3D> entry = closestPoint.entrySet().iterator().next();
+        return entry;
+    }
+
+    /*************************************************
+     * FUNCTION
+     *  getClosestPoint();
+     *
+     * PARAMETERS
+     *
+     * RETURN VALUE
+     *
+     * MEANING
+     *
+     * See Also
+     *
+     **************************************************/
+    private Map<Geometry, Point3D> getClosestPoint(Map<Geometry, List<Point3D>> intersectionPoints) {
+        Map<Geometry, Point3D> geometriesClosestPoint = new HashMap<Geometry,Point3D>();
+        double max = 999999999;
+        Point3D p0=_scene.getCamera().get_P0();
+        double distance;
+
+        for(Entry<Geometry,List<Point3D>> intersectionsIt : intersectionPoints.entrySet()){
+            for(Point3D p : intersectionsIt.getValue())
+            {
+                distance=p0.distance(p);
+                while(max>distance)
+                {
+                    geometriesClosestPoint.clear();
+                    geometriesClosestPoint.put(intersectionsIt.getKey(),p);
+                    max=distance;
+                }
+            }
+        }
+        return  geometriesClosestPoint;
+    }
+
+
 
     // Recursive
     private Ray constructRefractedRay(Geometry geometry, Point3D point, Ray inRay){
@@ -311,7 +378,7 @@ public class Render
     }
 
     private Ray constructReflectedRay(Vector normal, Point3D point, Ray inRay){
-       return null;
+        return null;
     }
 
     private boolean occluded(LightSource light, Point3D point, Geometry geometry){

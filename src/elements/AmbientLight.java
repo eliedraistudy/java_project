@@ -20,7 +20,6 @@ public class AmbientLight extends Light {
     }
     public AmbientLight(Color c){
         super(c);
-        _Ka = 1.0;
     }
 
     public AmbientLight(int r, int g, int b){
@@ -29,6 +28,8 @@ public class AmbientLight extends Light {
 
     public AmbientLight(Color c, double Ka){
         super(c);
+        if(Ka>1.0)
+            Ka = 1;
         _Ka = Ka;
     }
     public AmbientLight(Map<String, String> attributes){}
@@ -37,6 +38,7 @@ public class AmbientLight extends Light {
     public Color getColor(){ return _color; }
     public void  setColor(Color color) { _color = new Color(color.getRGB()); }
     public double getKa() { return _Ka; }
+    public void setKa(double k) { _Ka = k;}
 
 
     /*************************************************

@@ -40,9 +40,9 @@ public class LightingTest
 
         sphere.setEmission(new Color(255, 54, 37));
         triangle1.setEmission(Color.BLUE);
-        triangle2.setEmission(Color.BLUE);
-        triangle3.setEmission(Color.BLUE);
-        triangle4.setEmission(Color.BLUE);
+        triangle2.setEmission(Color.BLACK);
+        triangle3.setEmission(Color.GREEN);
+        triangle4.setEmission(Color.CYAN);
 
         scene.addGeometry(sphere);
         scene.addGeometry(triangle1);
@@ -52,14 +52,14 @@ public class LightingTest
 
         ImageWriter imageWriter =
                 new ImageWriter(
-                        "Emission test2 - blue",
+                        "Emission test4",
                         501, 501,
                         501, 501);
 
         Render render = new Render(imageWriter, scene);
 
         scene.setBackground(Color.BLACK);
-        scene.setAmbientLight(new AmbientLight(Color.LIGHT_GRAY, 1.0));
+        scene.setAmbientLight(new AmbientLight(Color.LIGHT_GRAY, 0.5));
         render.renderImage();
         render.printGrid(50, Color.WHITE);
         render.writeToImage("/results/RenderResults/");

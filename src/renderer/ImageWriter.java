@@ -62,6 +62,30 @@ public class ImageWriter {
 
     // ***************** Operations ******************** //
 
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * writeToImage
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     *
+     * -------
+     * MEANING
+     * -------
+     * write the image to the default file
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public void writeToimage(){
 
         File ouFile = new File(PROJECT_PATH + "/results/" + _imageName + ".jpg");
@@ -73,6 +97,31 @@ public class ImageWriter {
         }
     }
 
+
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * writeToImage
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * String - the string representation of the path where to write
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     *
+     * -------
+     * MEANING
+     * -------
+     * write the image to the string path file
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public void writeToimage(String file_path){
         File ouFile = new File(PROJECT_PATH + file_path + _imageName + ".jpg");
 
@@ -83,6 +132,35 @@ public class ImageWriter {
         }
     }
 
+    /*************************************************
+     * --------
+     * FUNCTION
+     * --------
+     * writePixel
+     *
+     * ------------
+     * PARAMETER(S)
+     * ------------
+     * int - the x coordinate of the pixel
+     * int - the y coordinate of the pixel
+     * int - red composant
+     * int - green composant
+     * int - blue composant
+     *
+     * ------------
+     * RETURN VALUE
+     * ------------
+     * void
+     *
+     * -------
+     * MEANING
+     * -------
+     * write a specific pixel
+     *
+     * --------
+     * SEE ALSO
+     * --------
+     *************************************************/
     public void writePixel(int xIndex, int yIndex, int r, int g, int b){
 
         int rgb = new Color(r, g, b).getRGB();

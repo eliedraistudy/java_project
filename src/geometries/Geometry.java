@@ -15,7 +15,6 @@ public abstract class Geometry
 
 
 
-
     //******************* Abstract methods *******************//
     public abstract List<Point3D> FindIntersections (Ray ray);
     public abstract Vector getNormal(Point3D point);
