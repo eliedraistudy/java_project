@@ -76,7 +76,7 @@ public class Render
                 Map<Geometry,List<Point3D>> hm = getSceneRayIntersections(ray);
 
                 //  if no intersections, color according to background
-                if(noIntersections(hm))
+                if(hm.isEmpty())
                     _imageWriter.writePixel(j,i,_scene.getBackground());
                 else{
                     //  get the closest geometry point
@@ -108,6 +108,7 @@ public class Render
             if(!l.isEmpty())
                 return false;
         }
+
         return true;
     }
 
@@ -242,8 +243,18 @@ public class Render
         return calcColor(geometry, point, ray, 0);
     }
 
+    private Color calcFinalColor(Geometry g, Color lightColor){
+        Color emission = g.getEmission();
+        return subColors(lightColor,emission);
+    }
+
+
     private Color calcColor(Geometry geometry, Point3D point, Ray inRay, int level){
-        if (level == RECURSION_LEVEL){
+
+        //  for now only return the color of the geometry according to the ambient light
+        return calcColor(geometry);
+
+        /*if (level == RECURSION_LEVEL){
             return new Color(0, 0, 0);
         }
 
@@ -282,12 +293,13 @@ public class Render
             }
         }
 
-        Color I0 = addColors(inherentColors, lightReflected);
+        Color I0 = addColors(inherentColors, lightReflected);*/
 
 
-        //**// Recursive calls
+
 
         // Recursive call for a reflected ray
+        /*
         Ray reflectedRay = constructReflectedRay(geometry.getNormal(point), point, inRay);
         Entry<Geometry, Point3D> reflectedEntry = findClosestIntersection(reflectedRay);
         Color reflected = new Color(0, 0, 0);
@@ -318,18 +330,17 @@ public class Render
         }
 
 
-        //**// End of recursive calls
 
         Color envColors = addColors(reflected, refracted);
 
         Color finalColor = addColors(envColors, I0);
 
-        return finalColor;
+        return finalColor;*/
     }
 
     /************************************************
      * FUNCTION
-     *  findClosesntIntersection();
+     *  findClosestIntersection();
      *
      * PARAMETERS
      *  Ray - a camera ray.
@@ -371,7 +382,8 @@ public class Render
      * See Also
      *
      **************************************************/
-    private Map<Geometry, Point3D> getClosestPoint(Map<Geometry, List<Point3D>> intersectionPoints) {
+    private Map<Geometry, Point3D> getClosestPoint(
+            Map<Geometry, List<Point3D>> intersectionPoints) {
         Map<Geometry, Point3D> geometriesClosestPoint = new HashMap<Geometry,Point3D>();
         double max = 999999999;
         Point3D p0=_scene.getCamera().get_P0();
@@ -498,7 +510,7 @@ public class Render
 
         Point3D ret = l.get(0);
         for(Point3D p: l){
-            if(ray.getPOO().distance(p)<= ray.getPOO().distance(ret))
+            if(ray.getPOO().distance(p)< ray.getPOO().distance(ret))
                 ret = p;
         }
         return new Point3D(ret);

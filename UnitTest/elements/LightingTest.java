@@ -16,27 +16,28 @@ public class LightingTest
 
 
         Scene scene = new Scene();
-        scene.setScreenDistance(100);
+        int d = 100;
+        scene.setScreenDistance(d/2);
 
-        Sphere sphere = new Sphere(50, new Point3D(0.0, 0.0, -100));
+        Sphere sphere = new Sphere(50, new Point3D(0.0, 0.0, -d));
         Triangle triangle1 = new Triangle(
-                new Point3D(150, 0, -100),
-                new Point3D(0, 150, -100),
-                new Point3D(150, 150, -100));
+                new Point3D(150, 0, -d),
+                new Point3D(0, 150, -d),
+                new Point3D(150, 150, -d));
 
-        Triangle triangle2 = new Triangle(new Point3D(150, 0, -100),
-                new Point3D(0, -150, -100),
-                new Point3D(150, -150, -100));
+        Triangle triangle2 = new Triangle(new Point3D(150, 0, -d),
+                new Point3D(0, -150, -d),
+                new Point3D(150, -150, -d));
 
         Triangle triangle3 = new Triangle(
-                new Point3D(-150, 0, -100),
-                new Point3D(0, 150, -100),
-                new Point3D(-150, 150, -100));
+                new Point3D(-150, 0, -d),
+                new Point3D(0, 150, -d),
+                new Point3D(-150, 150, -d));
 
         Triangle triangle4 = new Triangle(
-                new Point3D(-150, 0, -100),
-                new Point3D(0, -150, -100),
-                new Point3D(-150, -150, -100));
+                new Point3D(-150, 0, -d),
+                new Point3D(0, -150, -d),
+                new Point3D(-150, -150, -d));
 
         sphere.setEmission(new Color(255, 54, 37));
         triangle1.setEmission(Color.BLUE);
