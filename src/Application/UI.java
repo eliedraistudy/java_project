@@ -1,8 +1,6 @@
 package Application;
 
-import elements.AmbientLight;
-import elements.Camera;
-import elements.LightSource;
+import elements.*;
 import geometries.Geometry;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -12,6 +10,7 @@ import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
 
+import java.awt.*;
 import java.io.Console;
 import java.util.Scanner;
 
@@ -21,23 +20,173 @@ public class UI {
 
     public static void main(String[] args){
         welcome();
-        int choice = -1;
-        do {
-            choice = input();
-            switch(choice){
-                case 1: spherePicture(); break;
-                case 2: animalPicture(); break;
-                case 0: quit(); break;
-                default: System.out.println("Error in input");
-            }
-        } while(choice != 0);
 
+        chooseTest();
+        quit();
+    }
+
+    private static void chooseTest(){
+
+        println("Please choose a test:\n" +
+                "1) Recursive Test\n" +
+                "2) Shadow Test\n" +
+                "3) Animal Test\n\n");
+
+        int inp = choice();
+
+        switch(inp){
+            case 1: /*recursive();*/ break;
+            case 2: shadow(); break;
+            case 3: /*animal();*/ break;
+            default: break;
+        }
+
+
+
+    }
+
+
+    private static void shadow(){
+
+        println("Create your scene for shadow test: ");
+        Scene scene = createScene();
+
+
+        //  add the geometries
+        Sphere sphere = new Sphere(500, new Point3D(0.0, 0.0, -1000));
+        sphere.setShininess(20);
+        sphere.setEmission(new Color(0, 0, 100));
+
+        scene.addGeometry(sphere);
+
+        Triangle triangle1 = new Triangle(new Point3D(  3500,  3500, -2000),
+                new Point3D( -3500, -3500, -1000),
+                new Point3D(  3500, -3500, -2000));
+
+        Triangle triangle2 = new Triangle(new Point3D(  3500,  3500, -2000),
+                new Point3D( -3500,  3500, -1000),
+                new Point3D( -3500, -3500, -1000));
+
+        scene.addGeometry(triangle1);
+        scene.addGeometry(triangle2);
+
+
+        String s = inputFileName();
+        ImageWriter imageWriter = new ImageWriter(s, 500, 500, 500, 500);
+
+        Render render = new Render(imageWriter, scene);
+
+        println("Start rendering...");
+        render.renderImage();
+        render.writeToImage("/results/UIResults/");
+        println("Correctly rendered, " + s + "is in /results/UIResults");
+    }
+
+    private static String inputFileName(){
+        print("Enter a file name: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+
+
+    private static Scene createScene(){
+
+        Scene scene = new Scene();
+        print("Please enter:\n" +
+                "\t1 - for directional light\n" +
+                "\t2 - for spot light\n" +
+                "\t3 - for point light\n" +
+                "Your choice: ");
+
+        int inp = choice();
+        switch(inp){
+            case 1: scene.addLight(directional()); break;
+            case 2: scene.addLight(spotlight()); break;
+            case 3: scene.addLight(pointlight()); break;
+            default: break;
+        }
+
+
+
+
+
+        return scene;
+    }
+
+
+    private static DirectionalLight directional(){
+
+        println("Directional Light");
+        Color c = inputColor();
+        int a = inputAngle();
+
+        Vector direction = getDirection(a);
+
+
+        return new DirectionalLight(c,direction);
+    }
+
+    private static SpotLight spotlight(){
+        println("Spot Light");
+        Color c = inputColor();
+        int a = inputAngle();
+
+        Point3D start = getStart(a);
+        Vector direction = getDirection(a);
+
+        return new SpotLight(c,start,direction,0, 0.000001, 0.0000005);
+    }
+
+
+    private static PointLight pointlight(){
+        println("Point Light");
+        Color c = inputColor();
+        int a = inputAngle();
+
+        Point3D start = getStart(a);
+
+        return new PointLight(c,start,0, 0.000001, 0.0000005);
+    }
+
+
+
+    private static Color inputColor(){
+        println("Enter a color (r, g, b): ");
+        print("R: ");
+        int R = new Scanner(System.in).nextInt();
+
+        print("G: ");
+        int G = new Scanner(System.in).nextInt();
+
+        print("B: ");
+        int B = new Scanner(System.in).nextInt();
+
+
+        return new Color(R,G,B);
+
+    }
+
+    private static int inputAngle(){
+        println("Select an angle (0° - 180°): ");
+        return new Scanner(System.in).nextInt();
+    }
+
+    private static int choice(){
+        return new Scanner(System.in).nextInt();
+    }
+
+    private static void print(String s){
+        System.out.print(s);
+    }
+
+    private static void println(String s){
+        System.out.println(s);
     }
 
     public static void quit(){
         System.out.println("\n\n===========================\n" +
                 "Thank you for using our app\n" +
-                "===========================\n");
+                "===========================\n\n");
     }
 
     public static void welcome(){

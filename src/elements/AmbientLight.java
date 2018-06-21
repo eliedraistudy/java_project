@@ -10,7 +10,7 @@ import java.awt.Color;
 
 public class AmbientLight extends Light implements Comparable<AmbientLight>
 {
-    public final double _ka = 1.0;
+    public double _ka = 1.0;
 
     //region ***** CONSTRUCTORS *****
 

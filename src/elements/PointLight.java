@@ -6,7 +6,7 @@ import java.util.*;
 import java.awt.Color;
 
 
-public abstract class PointLight extends Light implements LightSource
+public class PointLight extends Light implements LightSource
 {
     protected Point3D _position;
     protected double _Kc, _Kl, _Kq;
@@ -46,7 +46,7 @@ public abstract class PointLight extends Light implements LightSource
      *           We multiply the result to the whole of lightIntensity composites.
      * Return :  the result colour
      * */
-    public Color GetIntensity(Point3D point3D, double dotProductDL, Color color)
+    public Color getIntensity(Point3D point3D, double dotProductDL, Color color)
     {
         double distance = new Vector(this._position, point3D).length();
         double pointLightColorIntensity = 1 * Math.abs(dotProductDL) / (this._Kc + this._Kl * distance + this._Kq * distance * distance);
@@ -63,7 +63,7 @@ public abstract class PointLight extends Light implements LightSource
     @Override
     public Color getIntensity(Point3D point3D)
     {
-        return GetIntensity(point3D, 1, _color);
+        return getIntensity(point3D, 1, _color);
     }
 
     /**
