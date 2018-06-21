@@ -17,7 +17,7 @@ public class LightingTest
 
         Scene scene = new Scene();
         int d = 100;
-        scene.setScreenDistance(d/2);
+        scene.setScreenDistance(d);
 
         Sphere sphere = new Sphere(50, new Point3D(0.0, 0.0, -d));
         Triangle triangle1 = new Triangle(
@@ -40,7 +40,7 @@ public class LightingTest
                 new Point3D(-150, -150, -d));
 
         sphere.setEmission(new Color(255, 54, 37));
-        triangle1.setEmission(Color.BLUE);
+        triangle1.setEmission(Color.green);
         triangle2.setEmission(Color.BLACK);
         triangle3.setEmission(Color.GREEN);
         triangle4.setEmission(Color.CYAN);
@@ -60,7 +60,6 @@ public class LightingTest
         Render render = new Render(imageWriter, scene);
 
         scene.setBackground(Color.BLACK);
-        scene.setAmbientLight(new AmbientLight(Color.WHITE, 0.5));
         render.renderImage();
         render.printGrid(50, Color.WHITE);
         render.writeToImage("/results/RenderResults/");

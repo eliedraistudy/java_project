@@ -5,103 +5,100 @@ import primitives.Point3D;
 import java.awt.*;
 import java.util.Map;
 
+import java.util.*;
+import java.awt.Color;
 
-public class AmbientLight extends Light {
+public class AmbientLight extends Light implements Comparable<AmbientLight>
+{
+    public final double _ka = 1.0;
 
-    // ***************** Fields ********************** //
-    private double _Ka = 1.0;
+    //region ***** CONSTRUCTORS *****
 
-    // ***************** Constructors ********************** //
-
-    public AmbientLight(){}
-    public AmbientLight(AmbientLight aLight){
-        super(aLight);
-        _Ka = aLight._Ka;
-    }
-    public AmbientLight(Color c){
-        super(c);
+    public AmbientLight()
+    {
+        super();
     }
 
-    public AmbientLight(int r, int g, int b){
-        super(new Color(r,g,b));
+    public AmbientLight(AmbientLight Al)
+    {
+        _color = new Color(Al._color.getRGB());
     }
 
-    public AmbientLight(Color c, double Ka){
-        super(c);
-        if(Ka>1.0)
-            Ka = 1;
-        _Ka = Ka;
+    public AmbientLight(int r, int b, int g)
+    {
+        _color = new Color(r,g,b); //new Color built with three numbers which are the three wave lengths
     }
-    public AmbientLight(Map<String, String> attributes){}
 
-    // ***************** Getters/Setters ********************** //
-    public Color getColor(){ return _color; }
-    public void  setColor(Color color) { _color = new Color(color.getRGB()); }
-    public double getKa() { return _Ka; }
-    public void setKa(double k) { _Ka = k;}
+    public AmbientLight(Color color)
+    {
+        new AmbientLight(color.getRed(),color.getGreen(), color.getBlue());
+    }
+
+    //endregion
+
+    //region ***** GETTERS / SETTERS *****
+
+    public double getKa()
+    {
+        return _ka;
+    }
+
+    public Color getColor()
+    {
+        return _color;
+    }
+
+    public void setColor(Color color)
+    {
+        _color = new Color(color.getRGB());
+    }
+
+    //endregion
+
+    //region ***** OPERATIONS *****
+
+    /**
+     *  Function : getIntensity()
+     *  Meaning : return a new color with the parameters Red,Green,Blue that are multiplied by the coefficient to get a new color
+     *  Return : the new color which is the intensity
+     */
+    public Color getIntensity()
+    {
+
+        return new Color((int)(_ka * _color.getRed()),
+                (int)(_ka * _color.getGreen()),
+                (int)(_ka * _color.getBlue()));
+
+    }
+
+    public Color getIntensity(Point3D point)
+    {
+        return getIntensity();
+    }
+
+    //endregion
 
 
-    /*************************************************
-     * --------
-     * FUNCTION
-     * --------
-     * get ambient light intensity
-     *
-     * ------------
-     * PARAMETER(S)
-     * ------------
-     *
-     * ------------
-     * RETURN VALUE
-     * ------------
-     * The new color by multiplicate the R,G,B fields by the intensity Ka
-     *
-     * -------
-     * MEANING
-     * -------
-     *
-     * --------
-     * SEE ALSO
-     * --------
-     *************************************************/
+    //region *****ADMINISTRATION *****
+
     @Override
-    public Color getIntensity(Point3D p){
-        return new Color(
-                (int)(_color.getRed()*_Ka),
-                (int)(_color.getGreen()*_Ka),
-                (int)(_color.getBlue()*_Ka));
+    /**
+     * Function : compareTo(AmbientLight ambientlight)
+     * Parameter : an ambientlight for the comparison
+     * Meaning : if the color and the coefficient ka are the same return 0
+     * Return : 0 if they are equal, 1 otherwise
+     */
+    public int compareTo(AmbientLight ambientLight)
+    {
+        if(this._color == ambientLight.getColor() && this._ka == ambientLight.getKa())
+            return 0;
+        return -1;
     }
 
-
-    /*************************************************
-     * --------
-     * FUNCTION
-     * --------
-     * equals
-     *
-     * ------------
-     * PARAMETER(S)
-     * ------------
-     *  Object - o, the light to compare with
-     *
-     * ------------
-     * RETURN VALUE
-     * ------------
-     * True if 2 ambient lights are equals
-     * False otherwise
-     *
-     * -------
-     * MEANING
-     * -------
-     *
-     * --------
-     * SEE ALSO
-     * --------
-     *************************************************/
     @Override
-    public boolean equals(Object o){
-        AmbientLight a = (AmbientLight)o;
-        return a.getColor().equals(getColor()) && _Ka == a.getKa();
+    public String toString()
+    {
+        return ("Color: "+ _color + " Factor Intensity: " + _ka);
     }
+
 }
-

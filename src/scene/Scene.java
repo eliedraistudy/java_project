@@ -31,7 +31,7 @@ public class Scene{
         this._geometries = new ArrayList<Geometry>();
         this._lights= new ArrayList<LightSource>();
         this._background = new Color(Color.BLACK.getRGB());// Check if is true to do it.
-        this._ambientLight = new AmbientLight();
+        this._ambientLight = new AmbientLight(Color.GRAY);
         this._camera = new Camera();
         this._sceneName = "scene";
         this._screenDistance = 100;

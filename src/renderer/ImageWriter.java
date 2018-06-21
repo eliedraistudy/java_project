@@ -20,6 +20,10 @@ public class ImageWriter {
 
     private String _imageName;
 
+    public BufferedImage getImage() {
+        return _image;
+    }
+
     // ***************** Constructors ********************** //
 
     public ImageWriter(String imageName, int width, int height, int Ny, int Nx){

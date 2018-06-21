@@ -47,7 +47,7 @@ public class ImageWriterTest {
         for (int i = 0; i < imageWriter.getHeight(); i++) {
             for (int j = 0; j < imageWriter.getWidth(); j++) {
                 if(j<=imageWriter.getWidth()/3)
-                    imageWriter.writePixel(j, i, new Color(0,0,128));
+                    imageWriter.writePixel(j, i, new Color(100,100,100));
 
                 else if (j<=2*imageWriter.getWidth()/3)
                     imageWriter.writePixel(j, i, 255, 255, 255);

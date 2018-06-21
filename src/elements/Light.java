@@ -1,19 +1,38 @@
 package elements;
 
-import primitives.Point3D;
+import primitives.*;
+import primitives.Vector;
+import java.util.*;
+import java.awt.Color;
 
-import java.awt.*;
+public abstract class Light
+{
+    protected Color _color = new Color(0,0,0);
 
-public abstract class Light {
+    //region ***** CONSTRUCTOR *****
 
-    // ***************** Fields ********************** //
-    protected Color _color;
+    public Light() {
+        _color = Color.BLACK;
+    }
 
-    // ***************** Constructors ********************** //
-    public Light(){_color = new Color(255,255,255);}
-    public Light (Color color){ _color = new Color(color.getRGB()); }
-    public Light(Light l) { _color = new Color(l._color.getRGB());}
+    public Light(Color c)
+    {
+        _color = new Color(c.getRGB());
+    }
 
-    // ***************** Getters/Setters ********************** //
-    public abstract Color getIntensity(Point3D p);
+    public Light(Light l){
+        _color = l._color;
+    }
+
+    //endregion
+
+    //region ***** GETTERS / SETTERS *****
+
+    public Color GetIntensity()
+    {
+        return _color;
+    }
+
+
+    //endregion
 }
