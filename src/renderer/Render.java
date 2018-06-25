@@ -23,13 +23,16 @@ public class Render {
 
     private Scene _scene;
     private ImageWriter _imageWriter;
-    private final int RECURSION_LEVEL = 3;
+    private int RECURSION_LEVEL = 3;
 
 
     public Render(ImageWriter imageWriter, Scene scene) {
         _scene = new Scene(scene);
         _imageWriter = new ImageWriter(imageWriter);
     }
+
+
+    public void setRecursionLevel(int r){ RECURSION_LEVEL = r; }
 
     /**
      * Function : renderImage
@@ -491,7 +494,7 @@ public class Render {
      */
     private Color calcColor(Geometry geometry, Point3D point, Ray inRay, int level)
     {
-        if(level ==  RECURSION_LEVEL)
+        if(level >=  RECURSION_LEVEL)
             return Color.BLACK;
 
         Color instantColor = calcColor(geometry, point);

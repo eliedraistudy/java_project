@@ -371,7 +371,7 @@ public class LightingTest
         }
 
         ImageWriter imageWriter =
-                new ImageWriter("Horse test2",
+                new ImageWriter("Horse test8",
                         900, 900,
                         900, 900);
 
