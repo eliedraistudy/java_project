@@ -226,6 +226,8 @@ public class Render {
      *            We multiply the result to the whole of lightIntensity composites.
      *  Return : the result colour
      */
+
+/*
     private final Color calcSpecularComp(double ks, Vector v, Vector normal, Vector l,
                                          double shininess, Color lightIntensity) {
         Vector r = new Vector(l);               //Copying the Vector l to use it without modifying it
@@ -245,9 +247,41 @@ public class Render {
         if(v.dotProduct(r) > 0)
             specularColorIntensity = ks * Math.pow(v.dotProduct(r), shininess);
 
-        return new Color((int)(specularColorIntensity * lightIntensity.getRed()),
+        return new Color(
+                (int)(specularColorIntensity * lightIntensity.getRed()),
                 (int)(specularColorIntensity * lightIntensity.getGreen()),
                 (int)(specularColorIntensity * lightIntensity.getBlue()));
+    }*/
+
+
+    public Color calcSpecularComp(double Ks, Vector v, Vector n,Vector l,double nShininess,Color intensity){
+
+        Vector L= new Vector(l);
+        L.normalize();
+        n.normalize();
+        n.scale(2*(l.dotProduct(n)));
+        Vector r=new Vector(L.subtract_return(n));
+        r.normalize();
+        v.normalize();
+
+        double vr= Math.pow(r.dotProduct(v),nShininess);
+        double kvr=Math.abs(Ks*vr);
+
+
+        int red= (int)(kvr*intensity.getRed()) ;
+        int green= (int)(kvr*intensity.getGreen());
+        int blue= (int)(kvr*intensity.getBlue());
+
+
+        if(red>255) red=255;
+        if(green>255) green=255;
+        if(blue>255) blue=255;
+        if(red<0) red=0;
+        if(green<0) green=0;
+        if(blue<0) blue=0;
+
+
+        return new Color(red,green,blue);
     }
 
 
@@ -285,10 +319,12 @@ public class Render {
         normal.normalize();
         l.normalize();
         double diffusedColorIntensity = Math.abs(kd * (normal.dotProduct(l)));
-        return new Color((int)(diffusedColorIntensity * lightIntensity.getRed()),
+        return new Color(
+                (int)(diffusedColorIntensity * lightIntensity.getRed()),
                 (int)(diffusedColorIntensity * lightIntensity.getGreen()),
                 (int)(diffusedColorIntensity * lightIntensity.getBlue()));
     }
+
 
 
     /**
@@ -459,6 +495,39 @@ public class Render {
             return Color.BLACK;
 
         Color instantColor = calcColor(geometry, point);
+
+        //**// Recursive calls
+
+        // Recursive call for a reflected ray
+        Ray reflectedRay = constructReflectedRay(geometry.getNormal(point), point, inRay);
+        Entry<Geometry, Point3D> reflectedEntry = findClosesntIntersection(reflectedRay);
+        Color reflected = new Color(0, 0, 0);
+        if (reflectedEntry != null){
+            reflected = calcColor(reflectedEntry.getKey(), reflectedEntry.getValue(), reflectedRay, level + 1);
+            double kr = geometry.getMaterial().getKr();
+            reflected = new Color ((int)(reflected.getRed() * kr), (int)(reflected.getGreen() * kr),(int)(reflected.getBlue() * kr));
+        }
+
+        // Recursive call for a refracted ray
+        Ray refractedRay = constructRefractedRay(geometry, point, inRay);
+        Entry<Geometry, Point3D> refractedEntry = findClosesntIntersection(refractedRay);
+        Color refracted = new Color(0, 0, 0);
+        if (refractedEntry != null){
+            refracted = calcColor(refractedEntry.getKey(), refractedEntry.getValue(), refractedRay, level + 1);
+            double kt = geometry.getMaterial().getKt();
+            refracted = new Color ((int)(refracted.getRed() * kt), (int)(refracted.getGreen() * kt),(int)(refracted.getBlue() * kt));
+        }
+
+
+        //**// End of recursive calls
+
+        Color envColors = addColors(reflected, refracted);
+
+        Color finalColor = addColors(envColors, instantColor);
+
+        return finalColor;
+
+        /*
         Ray reflectedRay = constructReflectedRay(geometry.getNormal(point), point, inRay);
 
         Entry<Geometry,Point3D> reflectedEntry = findClosesntIntersection(reflectedRay);
@@ -501,7 +570,9 @@ public class Render {
         }
 
         return addColors(instantColor, addColors(colorReflectedIntensity, colorRefractedIntensity));
+    */
     }
+
 
 
     private Entry<Geometry, Point3D> findClosesntIntersection(Ray ray)

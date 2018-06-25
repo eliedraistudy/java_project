@@ -28,7 +28,7 @@ public abstract class Light
 
     //region ***** GETTERS / SETTERS *****
 
-    public Color GetIntensity()
+    public Color getIntensity()
     {
         return _color;
     }

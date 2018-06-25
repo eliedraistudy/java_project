@@ -31,7 +31,7 @@ public abstract class Geometry
     public void setKs(double ks) { _material.setKs(ks); }
     public void setKd(double kd) { _material.setKd(kd); }
     public void setKr(double kr) { _material.setKr(kr); }
-    public void setKt(double kt) { _material.setKd(kt); }
+    public void setKt(double kt) { _material.setKt(kt); }
 
 
 }
