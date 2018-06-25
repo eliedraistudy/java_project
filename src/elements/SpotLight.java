@@ -35,7 +35,7 @@ public  class SpotLight extends PointLight
         Color pointColor = super.getIntensity(point3D);
         Vector vector = new Vector(getL(point3D)).normalVector();
         double dotProduct = _direction.dotProduct(vector);
-        return super.GetIntensity(point3D, dotProduct, pointColor);
+        return super.getIntensity(point3D, dotProduct, pointColor);
     }
 
     //endregion

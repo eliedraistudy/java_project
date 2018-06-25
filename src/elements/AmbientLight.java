@@ -31,7 +31,7 @@ public class AmbientLight extends Light implements Comparable<AmbientLight>
 
     public AmbientLight(Color color)
     {
-        new AmbientLight(color.getRed(),color.getGreen(), color.getBlue());
+        _color = new Color(color.getRGB());
     }
 
     //endregion

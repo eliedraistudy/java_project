@@ -126,6 +126,14 @@ public class UI {
         return new DirectionalLight(c,direction);
     }
 
+    private static Vector getDirection(int angle){
+        return new Vector();
+    }
+
+    private static Point3D getStart(int angle){
+        return new Point3D();
+    }
+
     private static SpotLight spotlight(){
         println("Spot Light");
         Color c = inputColor();

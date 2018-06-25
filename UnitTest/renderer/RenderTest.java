@@ -78,9 +78,9 @@ public class RenderTest {
 
         scene.addLight(
                 new SpotLight(
-                        new Color(100, 100, 100),
-                        new Point3D(500, 0, -100),
-                        new Vector(-1, 0, 0),
+                        new Color(255, 100, 100),
+                        new Point3D(200, 200, -100),
+                        new Vector(-2, -2, -3),
                         0,
                         0.000001,
                         0.0000005));
