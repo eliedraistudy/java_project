@@ -33,7 +33,7 @@ public class UI {
                 "Your choice: ");
 
         int choice = UserSelect.inputInt();
-        String file = UserSelect.inputFile();
+        String file = inputFile();
 
 
         switch(choice){
@@ -47,6 +47,11 @@ public class UI {
 
     }
 
+    public static String inputFile(){
+        System.out.print("Please enter your file's name: ");
+        return new Scanner(System.in).nextLine();
+    }
+
 
 
 
@@ -58,7 +63,7 @@ public class UI {
 
     public static void welcome(){
         System.out.println(
-                "======================================\n" +
+                "\n\n======================================\n" +
                         "Welcome to Picture Builder Application\n" +
                         "======================================\n");
     }

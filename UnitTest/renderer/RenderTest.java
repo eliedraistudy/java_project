@@ -28,13 +28,13 @@ public class RenderTest {
         sphere.setEmission(new Color(100, 100, 200));
         scene.addGeometry(sphere);
 
-        /*Triangle triangle = new Triangle(new Point3D(-125, -225, -260),
+        Triangle triangle = new Triangle(new Point3D(-125, -225, -260),
                 new Point3D(-225, -125, -260),
                 new Point3D(-225, -225, -270));
 
         triangle.setEmission(new Color (0, 0, 100));
         triangle.setShininess(4);
-        scene.addGeometry(triangle);*/
+        scene.addGeometry(triangle);
 
         scene.addLight(
                 new SpotLight(
@@ -182,7 +182,8 @@ public class RenderTest {
                         new Color(255, 100, 100),
                         new Point3D(200, 200, -150),
                         new Vector(-2, -2, -3),
-                        0, 0.00001, 0.000005));
+                        0, 0.00001, 0.000005)
+        );
 
 /*
         scene.addLight(

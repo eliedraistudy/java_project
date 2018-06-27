@@ -23,30 +23,8 @@ public class UserSelect {
     }
 
 
-    public static String inputFile(){
-        System.out.print("Please enter your file's name: ");
-        return new Scanner(System.in).nextLine();
-    }
 
-    private static int inputAngle(){
-        System.out.print("Please enter an angle value (between 0 and 180): ");
-        return inputInt();
-    }
 
-    private static Color inputColor(){
-        System.out.println("Please enter RGB components for the color: ");
-
-        System.out.print("R: ");
-        int r = inputInt();
-
-        System.out.print("G: ");
-        int g = inputInt();
-
-        System.out.print("B: ");
-        int b = inputInt();
-
-        return new Color(r,g,b);
-    }
 
     private static int inputRecursionLevel(){
         System.out.print("Please enter the recursion level: ");
@@ -54,56 +32,13 @@ public class UserSelect {
     }
 
 
-    private static LightSource createLight(){
-        System.out.println("Please input:\n" +
-                "1) Directional light\n" +
-                "2) Spot Light\n" +
-                "3) PointLight");
-        int lightChoice = inputInt();
 
-        Color color = inputColor();
-        int angle = inputAngle();
-
-        Point3D position = setPosition(angle);
-        Vector direction = setDirection(angle);
-
-
-        switch(lightChoice){
-            case 1: return new DirectionalLight(color, direction);
-            case 2: return new SpotLight(color,position,direction,0.1, 0.00001, 0.0000005);
-            case 3: return new PointLight(color,position,0.1, 0.00001, 0.0000005);
-        }
-        return new SpotLight(color,position,direction,0.1, 0.00001, 0.0000005);
-
-    }
-
-    private static double degToRad(int angle){
-        return angle*Math.PI/180;
-    }
-
-    private static Point3D setPosition(int angle) {
-
-        double t = degToRad(angle);
-        double y = 200;
-        double x = 2000 * Math.cos(t) - 150 * Math.sin(t);
-        double z = -150 * Math.cos(t) - 2000 * Math.sin(t);
-
-        return new Point3D(200, 200, -150);
-    }
-
-    private static Vector setDirection(int angle){
-        Point3D start = setPosition(angle);
-
-        double t = degToRad(angle);
-        double y = -200;
-        double x = 200;
-        double z = -150;
-        return new Vector(-2,-2,-3);
-    }
 
     public static void recursiveTest(String fileName){
 
 
+
+        /*
         //  create the scene
         //  with 2 spheres
         //  one light source
@@ -149,12 +84,14 @@ public class UserSelect {
 
         //  add the light
         scene.addLight(createLight());
+*/
 
+        Scene scene = RecursiveTest.createScene();
         ImageWriter imageWriter = new ImageWriter(fileName, 500, 500, 500, 500);
 
         Render render = new Render(imageWriter, scene);
-
         render.setRecursionLevel(inputRecursionLevel());
+
         System.out.println("Rendering...");
         render.renderImage();
         render.writeToImage("/results/UIResults/RecursiveTests/");
@@ -165,27 +102,8 @@ public class UserSelect {
 
     public static void shadowTest(String fileName){
 
-        Scene scene = new Scene();
 
-        Sphere sphere = new Sphere(500, new Point3D(0.0, 0.0, -1000));
-        sphere.setShininess(20);
-        sphere.setEmission(new Color(0, 0, 100));
-
-        scene.addGeometry(sphere);
-
-        Triangle triangle1 = new Triangle(new Point3D(3500, 3500, -2000),
-                new Point3D(-3500, -3500, -1000),
-                new Point3D(3500, -3500, -2000));
-
-        Triangle triangle2 = new Triangle(new Point3D(3500, 3500, -2000),
-                new Point3D(-3500, 3500, -1000),
-                new Point3D(-3500, -3500, -1000));
-
-        scene.addGeometry(triangle1);
-        scene.addGeometry(triangle2);
-
-        scene.addLight(createLight());
-
+        Scene scene = ShadowTest.createScene();
 
         ImageWriter imageWriter = new ImageWriter(fileName, 500, 500, 500, 500);
 
@@ -517,8 +435,5 @@ public class UserSelect {
                 "Your file is in /results/UIResults/AnimalTests");
     }
 
-    private static Triangle invertYX(Geometry t){
-        Triangle n = (Triangle)t;
-        return new Triangle(n.getP2(),n.getP1(),n.getP3());
-    }
+
 }
