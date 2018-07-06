@@ -1,9 +1,6 @@
 package Application;
 
-import elements.DirectionalLight;
-import elements.LightSource;
-import elements.PointLight;
-import elements.SpotLight;
+import elements.*;
 import geometries.Quadrangle;
 import geometries.Sphere;
 import primitives.Point3D;
@@ -47,9 +44,9 @@ public class ShadowTest {
 
     private static Point3D setPosition(int angle){
         double t = degToRad(angle);
-        double y = 300;
-        double x = 500*sin(t);
-        double z = 500*cos(t)-500;
+        double y = 500;
+        double x = 600*sin(t);
+        double z = 600*cos(t)-600;
         return new Point3D(x,y,z);
     }
 
@@ -89,6 +86,15 @@ public class ShadowTest {
 
     public static Scene createScene() {
         Scene scene = new Scene();
+
+        /*
+        scene.setCamera(
+                new Camera(
+                    new Point3D(0,300,0),
+                    new Vector(0,1,-1),
+                    new Vector(1,0,0)
+        ));
+        */
 
         double y = -600;
         double size = 2000;

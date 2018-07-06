@@ -50,6 +50,7 @@ public class Render {
         {
             for (int x = 0; x < _imageWriter.getNx(); x++)
             {
+                // For a given row, scan all the columns and all the ligns
                 Ray ray = _scene.getCamera().constructRayThroughPixel(
                         _imageWriter.getNx(), _imageWriter.getNy(), x, y, _scene.getScreenDistance(),
                         _imageWriter.getWidth(), _imageWriter.getHeight());
@@ -230,43 +231,24 @@ public class Render {
      *  Return : the result colour
      */
 
-/*
-    private final Color calcSpecularComp(double ks, Vector v, Vector normal, Vector l,
-                                         double shininess, Color lightIntensity) {
-        Vector r = new Vector(l);               //Copying the Vector l to use it without modifying it
-        Vector normalCopy = new Vector(normal); //Copying the Vector normal to use it without modifying it
-
-        l.normalize();
-        v.normalize();
-        r.normalize();
-        normalCopy.normalize();
-
-        Vector resultSubstractingDNN = normalCopy.scale_return(2 * l.dotProduct(normal));
-
-        r.add(resultSubstractingDNN);
-
-        double specularColorIntensity = 0;
-
-        if(v.dotProduct(r) > 0)
-            specularColorIntensity = ks * Math.pow(v.dotProduct(r), shininess);
-
-        return new Color(
-                (int)(specularColorIntensity * lightIntensity.getRed()),
-                (int)(specularColorIntensity * lightIntensity.getGreen()),
-                (int)(specularColorIntensity * lightIntensity.getBlue()));
-    }*/
-
 
     public Color calcSpecularComp(double Ks, Vector v, Vector n,Vector l,double nShininess,Color intensity){
 
+        //  formula is SpecularComp = Ks*(V.R)^n*I
+
+        //  get L
         Vector L= new Vector(l);
         L.normalize();
+
+
+        //  get R
         n.normalize();
         n.scale(2*(l.dotProduct(n)));
-        Vector r=new Vector(L.subtract_return(n));
+        Vector r = new Vector(L.subtract_return(n));
         r.normalize();
         v.normalize();
 
+        // get (V.R)^n
         double vr= Math.pow(r.dotProduct(v),nShininess);
         double kvr=Math.abs(Ks*vr);
 
@@ -410,11 +392,13 @@ public class Render {
 
             if (!occluded(light.getL(point), point, geometry))
             {
+                //  add the diffusive component
                 diffuseLight = addColors(diffuseLight, calcDiffusiveComp(geometry.getMaterial().getKd(),
                         geometry.getNormal(point),
                         light.getL(point),
                         light.getIntensity(point)));
 
+                //  add the specular component
                 specularLight = addColors(diffuseLight, calcSpecularComp(geometry.getMaterial().getKs(),
                         new Vector(point, _scene.getCamera().get_P0()),
                         geometry.getNormal(point),
@@ -443,15 +427,20 @@ public class Render {
      */
     private Ray constructReflectedRay(Vector normal, Point3D point, Ray inRay)
     {
+        // create the scalar prod
         double scalarProductDN = normal.dotProduct(inRay.getDirection().normalVector());
 
+
+        //  vector dn
         Vector vectorDN = normal.scale_return(-2 * scalarProductDN);
         Vector r = new Vector(inRay.getDirection().normalVector());
         r.add(vectorDN);
 
+        //  newray departure
         Point3D departureNewRay = new Point3D(point);
 
         departureNewRay.add(vectorDN);
+
 
         return new Ray(departureNewRay, r);
     }

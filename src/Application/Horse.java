@@ -1,141 +1,43 @@
 package Application;
 
-import elements.DirectionalLight;
-import elements.LightSource;
-import elements.PointLight;
-import elements.SpotLight;
 import geometries.Geometry;
-import geometries.Sphere;
 import geometries.Triangle;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
-import renderer.ImageWriter;
-import renderer.Render;
-import scene.Scene;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import java.awt.*;
-import java.util.Scanner;
 
-public class UserSelect {
+public class Horse extends Geometry {
 
-    public static int inputInt(){
-        return new Scanner(System.in).nextInt();
-    }
+    private static Color createRandomColor(){
 
-
-
-
-
-    private static int inputRecursionLevel(){
-        System.out.print("Please enter the recursion level: ");
-        return inputInt();
-    }
-
-
-
-
-    public static void recursiveTest(String fileName){
-
-
-
+        Random rand = new Random();
         /*
-        //  create the scene
-        //  with 2 spheres
-        //  one light source
-        Scene scene = new Scene();
-        scene.setScreenDistance(300);
-
-        //  add the sphere 1
-        Sphere sphere = new Sphere(300, new Point3D(-550, -500, -1000));
-        sphere.setShininess(20);
-        sphere.setEmission(new Color(0, 0, 100));
-        sphere.setKt(0.5);
-        scene.addGeometry(sphere);
-
-        //  add the sphere 2
-        Sphere sphere2 = new Sphere(150, new Point3D(-550, -500, -1000));
-        sphere2.setShininess(20);
-        sphere2.setEmission(new Color(100, 20, 20));
-        sphere2.setKt(0);
-        scene.addGeometry(sphere2);
-
-
-        //  add the mirror
-        Triangle triangle = new Triangle(new Point3D(1500, -1500, -1500),
-                new Point3D(-1500, 1500, -1500),
-                new Point3D(200, 200, -375));
-
-        Triangle triangle2 = new Triangle(new Point3D(1500, -1500, -1500),
-                new Point3D(-1500, 1500, -1500),
-                new Point3D(-1500, -1500, -1500));
-
-        triangle.setEmission(new Color(20, 20, 20));
-        triangle2.setEmission(new Color(20, 20, 20));
-        triangle.setKr(1);
-        triangle.setKd(0);
-        triangle.setKs(0);
-        triangle2.setKr(0.5);
-        triangle2.setKd(0);
-        triangle2.setKs(0);
-
-        scene.addGeometry(triangle);
-        scene.addGeometry(triangle2);
-
-
-        //  add the light
-        scene.addLight(createLight());
-*/
-
-        Scene scene = RecursiveTest.createScene();
-        ImageWriter imageWriter = new ImageWriter(fileName, 500, 500, 500, 500);
-
-        Render render = new Render(imageWriter, scene);
-        render.setRecursionLevel(inputRecursionLevel());
-
-        System.out.println("Rendering...");
-        render.renderImage();
-        render.writeToImage("/results/UIResults/RecursiveTests/");
-        System.out.println("Rendering successful\n" +
-                "Your file is in /results/UIResults/RecursiveTests");
+        return new Color(
+                rand.nextInt(256),
+                rand.nextInt(256),
+                rand.nextInt(256)
+        );*/
+        int r = rand.nextInt(256);
+        int g = rand.nextInt(256);
+        int b = rand.nextInt(256);
+        return new Color(r,g,b);
     }
-
-
-    public static void shadowTest(String fileName){
-
-
-        Scene scene = ShadowTest.createScene();
-
-        ImageWriter imageWriter = new ImageWriter(fileName, 500, 500, 500, 500);
-
-        Render render = new Render(imageWriter, scene);
-
-
-        System.out.println("Rendering...");
-        render.renderImage();
-        render.writeToImage("/results/UIResults/ShadowTests/");
-        System.out.println("Rendering successful\n" +
-                "Your file is in /results/UIResults/ShadowTests");
-    }
-
-
 
     private static Point3D P(int x, int y)
     {
         return new Point3D(y,x,-50);
     }
 
-    public static void horseTest(String fileName){
-        Scene scene = new Scene();
-        scene.setScreenDistance(50);
-
-
-        //scene.addGeometry(new Horse());
-
-        Geometry[] shapes = {
-                new Triangle(P(-330, -196),P(-330, -216),P(-310, -216)),
+    private Geometry[] shapes = {
+        new Triangle(P(-330, -196),P(-330, -216),P(-310, -216)),
                 new Triangle(P(-330, -196),P(-310, -216),P(-290, -206)),
                 new Triangle(P(-310, -216),P(-290, -206),P(-280, -216)),
-
                 new Triangle(P(-290, -206),P(-280, -216),P(-270, -202)),
                 new Triangle(P(-280, -216),P(-270, -202),P(-268, -214)),
                 new Triangle(P(-270, -202),P(-268, -214),P(-246, -210)),
@@ -269,174 +171,29 @@ public class UserSelect {
                 new Triangle(P(260, 48),P(244, 36),P(232, 46)),
                 new Triangle(P(260, 48),P(260, 28),P(244, 36)),
 
+    };
 
 
-
-
-
-        };
-
-        Color[] colors = {
-                new Color(255,128,128),
-                new Color(255,193,37),
-                new Color(154,205,50),
-                new Color(107,142,35),
-                new Color(139,69,19),
-                new Color(255,193,37),
-                new Color(165,42,42),
-                new Color(255,0,0),
-                new Color(0,100,0),
-                new Color(143,188,143),
-                new Color(0,100,0),
-                new Color(32,178,170),
-                new Color(205,198,115),
-                new Color(255,128,128),
-                new Color(32,178,170),
-                new Color(139,99,108),
-                new Color(85,26,139),
-                new Color(255,193,37),
-                new Color(85,26,139),
-                new Color(79,148,205),
-                new Color(255,0,0),
-                new Color(165,42,42),
-                new Color(255,128,128),
-                new Color(85,26,139),
-                new Color(79,148,205),
-                new Color(0,100,0),
-                new Color(32,178,170),
-                new Color(143,188,143),
-                new Color(255,0,0),
-                new Color(79,148,205),
-                new Color(54,100,139),
-                new Color(0,100,0),
-                new Color(143,188,143),
-                new Color(0,100,0),
-                new Color(255,193,37),
-                //   new Color(238,180,34),
-                new Color(143,188,143),
-                new Color(122,139,139),
-                new Color(143,188,143),
-                new Color(0,100,0),
-                new Color(85,26,139),
-                new Color(238,220,130),
-                new Color(238,180,34),
-                new Color(255,128,128),
-                new Color(238,220,130),
-                new Color(238,220,130),
-                new Color(139,139,0),
-                new Color(205,205,0),
-                new Color(238,220,130),
-                new Color(205,205,0),
-                new Color(139,139,0),
-                new Color(255,128,128),
-                new Color(0,100,0),
-                new Color(143,188,143),
-                new Color(238,220,130),
-                new Color(238,180,34),
-                new Color(85,26,139),
-                new Color(139,99,170),
-                new Color(255,128,128),
-                new Color(238,220,130),
-                new Color(79,148,205),
-                new Color(54,100,139),
-                new Color(107,142,35),
-                new Color(139,139,0),
-                new Color(255,193,37),
-                new Color(139,69,19),
-                new Color(54,100,139),
-                new Color(107,142,35),
-                new Color(139,139,0),
-                new Color(0,100,0),
-                new Color(143,188,143),
-                new Color(79,148,205),
-                new Color(54,100,139),
-                new Color(255,193,37),
-                new Color(139,69,19),
-                new Color(85,26,139),
-                new Color(107,142,35),
-                new Color(255,128,128),
-                new Color(85,26,139),
-                new Color(139,99,170),
-                new Color(143,188,143),
-                new Color(0,100,0),
-                new Color(79,148,205),
-                new Color(54,100,139),
-                new Color(255,0,0),
-                new Color(165,42,42),
-                new Color(85,26,139),
-                new Color(139,99,170),
-                new Color(143,188,143),
-                new Color(0,100,0),
-                new Color(79,148,205),
-                new Color(54,100,139),
-                new Color(255,128,128),
-                new Color(85,26,139),
-                new Color(0,100,0),
-                new Color(255,0,0),
-                new Color(165,42,42),
-                new Color(255,193,37),
-                new Color(255,128,128),
-                new Color(122,139,139),
-                new Color(0,100,0),
-                new Color(143,188,143),
-                new Color(79,148,205),
-                new Color(107,142,35),
-                new Color(139,139,0),
-                new Color(238,180,34),
-                new Color(238,220,130),
-                new Color(85,26,139),
-                new Color(139,99,170),
-                new Color(107,142,35),
-                new Color(139,139,0),
-                new Color(0,100,0),
-                new Color(238,220,130),
-                new Color(238,180,34),
-                new Color(255,0,0),
-                new Color(165,42,42),
-                new Color(85,26,139),
-                new Color(107,142,35),
-                new Color(85,26,139),
-                new Color(107,142,35),
-                new Color(0,100,0),
-                new Color(54,100,139),
-                new Color(79,148,205),
-                new Color(107,142,35),
-                new Color(165,42,42),
-                new Color(255,0,0),
-                new Color(139,99,170),
-                new Color(54,100,139),
-                new Color(107,142,35),
-                new Color(54,100,139),
-                new Color(255,128,128),
-                new Color(238,220,130),
-                new Color(107,142,35),
-                new Color(0,100,0),
-                new Color(85,26,139),
-                new Color(139,99,170),
-
-        };
-
-        for (int i = 0; i < shapes.length; i++)
-        {
-            shapes[i].setEmission(colors[i]);
-            scene.addGeometry(shapes[i]);
+    public Horse(){
+        for (int i = 0; i < shapes.length; i++) {
+            shapes[i].setEmission(createRandomColor());
         }
-
-        ImageWriter imageWriter =
-                new ImageWriter(fileName,
-                        900, 900,
-                        900, 900);
-
-        Render render = new Render(imageWriter, scene);
-
-
-
-        System.out.println("Rendering...");
-        render.renderImage();
-        render.writeToImage("/results/UIResults/AnimalTests/");
-        System.out.println("Rendering successful\n" +
-                "Your file is in /results/UIResults/AnimalTests");
     }
 
 
+    @Override
+    public List<Point3D> FindIntersections(Ray ray) {
+        List<Point3D> ret = new ArrayList<>();
+        List<Point3D> help;
+        for (int i = 0; i < shapes.length; i++) {
+            help = shapes[i].FindIntersections(ray);
+            ret.addAll(help);
+        }
+        return ret;
+    }
+
+    @Override
+    public Vector getNormal(Point3D point) {
+        return shapes[0].getNormal(point);
+    }
 }
